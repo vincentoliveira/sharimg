@@ -1,0 +1,12 @@
+sharimg_user:
+    resource: "@SharimgUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sharimg_content:
+    resource: "@SharimgContentBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sharimg_default:
+    resource: "@SharimgDefaultBundle/Resources/config/routing.yml"
+    prefix:   /
+

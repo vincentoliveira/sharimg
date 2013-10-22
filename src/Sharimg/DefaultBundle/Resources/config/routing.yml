@@ -1,0 +1,3 @@
+sharimg_default_homepage:
+    pattern:  /helloworld
+    defaults: { _controller: SharimgDefaultBundle:Default:index }

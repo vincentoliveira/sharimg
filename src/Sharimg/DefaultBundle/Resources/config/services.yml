@@ -1,0 +1,7 @@
+parameters:
+#    sharimg_default.example.class: Sharimg\DefaultBundle\Example
+
+services:
+#    sharimg_default.example:
+#        class: %sharimg_default.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
