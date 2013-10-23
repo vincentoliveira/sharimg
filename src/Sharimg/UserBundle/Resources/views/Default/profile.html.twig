@@ -1,0 +1,10 @@
+{% extends "SharimgDefaultBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <div class="container">
+        <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+        <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    </div>
+
+{% endblock content %}

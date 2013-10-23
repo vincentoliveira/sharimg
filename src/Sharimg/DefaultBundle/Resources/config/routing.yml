@@ -1,3 +1,7 @@
 sharimg_default_homepage:
-    pattern:  /helloworld
+    pattern:  /
     defaults: { _controller: SharimgDefaultBundle:Default:index }
+    
+sharimg_default_helloworld:
+    pattern:  /helloworld
+    defaults: { _controller: SharimgDefaultBundle:Default:helloworldAction }

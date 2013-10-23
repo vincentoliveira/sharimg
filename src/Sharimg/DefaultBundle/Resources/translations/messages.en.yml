@@ -1,0 +1,13 @@
+## YAML Template.
+---
+
+sharimg.sharimg: "Sharimg"
+sharimg.random: "Random"
+sharimg.copyright: "Copyright Sharimg 2013"
+sharimg.login: "Login"
+sharimg.logged_in_as: "Logged in as %username%"
+sharimg.logout: "Logout"
+sharimg.sign_up: "Sign up"
+
+profile.show.username: "Username"
+profile.show.email: "Email"
