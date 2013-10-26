@@ -9,4 +9,3 @@ sharimg_content:
 sharimg_default:
     resource: "@SharimgDefaultBundle/Resources/config/routing.yml"
     prefix:   /
-

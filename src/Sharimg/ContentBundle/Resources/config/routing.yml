@@ -1,3 +1,7 @@
 sharimg_content_homepage:
-    pattern:  /hello/{name}
+    pattern:  /
     defaults: { _controller: SharimgContentBundle:Default:index }
+    
+sharimg_content_add:
+    pattern:  /admin/add
+    defaults: { _controller: SharimgContentBundle:Admin:add }

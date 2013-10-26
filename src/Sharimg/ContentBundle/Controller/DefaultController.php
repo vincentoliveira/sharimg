@@ -3,11 +3,21 @@
 namespace Sharimg\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * DefaultController
+ */
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    /**
+     * Homepage
+     * 
+     * @Template
+     * @return Response
+     */
+    public function indexAction()
     {
-        return $this->render('SharimgContentBundle:Default:index.html.twig', array('name' => $name));
+        return array();
     }
 }
