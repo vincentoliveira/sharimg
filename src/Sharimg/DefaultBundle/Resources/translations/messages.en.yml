@@ -1,0 +1,11 @@
+## YAML Template.
+---
+
+sharimg.add_content: "Share"
+sharimg.random: "Random"
+
+api.content: "content"
+
+error.ok: "OK"
+error.bad_arg: "Invalid arguments"
+error.internal: "An unexpected error has occured"

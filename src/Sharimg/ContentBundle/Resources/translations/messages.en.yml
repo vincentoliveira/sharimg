@@ -1,5 +1,19 @@
 ## YAML Template.
 ---
 
-sharimg.random: "Random"
-sharimg.add: "Add content"
+content.add: "Share content"
+content.select_content: "Select the content you want to share"
+content.file_input: "File input"
+content.content_url: "Content url"
+content.or_content_url: "OR Content url"
+content.file_url.help: "Copy/paste url of content you want to post"
+content.description: "Description"
+content.date: "Date"
+content.from: "From"
+content.is_visible: "Publish ?"
+content.submit: "Share content"
+
+content.error.empty_file_input: "<em>File input</em> field xor <em>Content url</em> field must be filled"
+content.error.empty_content_url: "<em>File input</em> field xor <em>Content url</em> field must be filled"
+content.error.choose_one_content: "<em>File input</em> field xor <em>Content url</em> field must be filled"
+content.error.internal_error: "An unexpected error has occured. Please try again later."

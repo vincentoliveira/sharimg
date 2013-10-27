@@ -5,7 +5,7 @@
     {% set currentPath = '' %}
 {% endif %}
 
-<div class="navbar navbar-default navbar-fixed-top">
+<div class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -17,6 +17,9 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+                <li class="{% if currentPath == path('sharimg_content_add') %}active{% endif %}">
+                    <a href="{{ path('sharimg_content_add') }}">{{ 'sharimg.add_content'|trans }}</a>
+                </li>
                 <li>
                     <a href="#">{{ 'sharimg.random'|trans }}</a>
                 </li>

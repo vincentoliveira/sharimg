@@ -3,5 +3,11 @@ sharimg_content_homepage:
     defaults: { _controller: SharimgContentBundle:Default:index }
     
 sharimg_content_add:
-    pattern:  /admin/add
-    defaults: { _controller: SharimgContentBundle:Admin:add }
+    pattern:  /content/add
+    defaults: { _controller: SharimgContentBundle:Default:add }
+
+sharimg_api_content_add:
+    pattern:  /api/add_content.json
+    defaults: { _controller: SharimgContentBundle:Api:add }
+    requirements:
+        _method: POST

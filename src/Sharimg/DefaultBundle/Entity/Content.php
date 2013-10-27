@@ -46,16 +46,29 @@ class Content
     /**
      * @var string
      *
-     * @ORM\Column(name="from", type="string", length=31, nullable=true)
+     * @ORM\Column(name="from_", type="string", length=31, nullable=true)
      */
     private $from;
-
     /**
      * @var boolean
      *
      * @ORM\Column(name="visible", type="boolean")
      */
     private $visible;
+    
+    private $tmpPath;
+    private $tmpFile;
+
+    public function setTmpPath($tmpPath)
+    {
+        $this->tmpPath = $tmpPath;
+        return $this;
+    }
+    public function setTmpFile($tmpFile)
+    {
+        $this->tmpFile = $tmpFile;
+        return $this;
+    }
 
 
     /**
@@ -181,5 +194,80 @@ class Content
     public function getFrom()
     {
         return $this->from;
+    }
+    
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+    
+     public function getThumbAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/min-'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        return 'images';
+    }
+    
+        /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->tmpPath) {
+            $ext = basename(mime_content_type($this->tmpPath));
+            $this->path = sha1(uniqid(mt_rand(), true)).'.'.$ext;
+        }
+        if (null !== $this->tmpFile) {
+            $this->path = sha1(uniqid(mt_rand(), true)).'.'.$this->tmpFile->guessExtension();
+            $this->tmpPath = $this->tmpFile->getPathName();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->tmpFile && null === $this->tmpPath) {
+            return;
+        }
+        
+        $path = $this->getUploadRootDir() . '/' . $this->path;
+        copy($this->tmpPath, $path);
+        
+        // generate thumbnail
+        //$thumbnailPath = $this->getUploadRootDir() . '/min-' . $this->path;
+        //CommonHelper::resizeImage($this->getAbsolutePath(), $thumbnailPath, self::THUMB_WIDTH);
+
+        unset($this->tmpFile);
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+        if ($file = $this->getThumbAbsolutePath()) {
+            unlink($file);
+        }
     }
 }
