@@ -53,8 +53,8 @@ class ContentFormHandler
         $content = new Content();
         
         $content->setDescription($this->getPostParams($params, 'description'));
-        $content->setVisible($this->getPostParams($params, 'is_visible'));
         $content->setFrom($this->getPostParams($params, 'from'));
+        $content->setVisible(isset($params['is_visible']));
         
         // set date
         try {

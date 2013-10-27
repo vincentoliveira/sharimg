@@ -1,6 +1,8 @@
 ## YAML Template.
 ---
 
+content.contents: "Contents"
+
 content.add: "Share content"
 content.select_content: "Select the content you want to share"
 content.file_input: "File input"

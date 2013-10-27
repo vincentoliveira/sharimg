@@ -3,6 +3,7 @@
 namespace Sharimg\DefaultBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sharimg\DefaultBundle\Helper\CommonHelper;
 
 /**
  * Content
@@ -12,7 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks
  */
 class Content
-{    
+{
+    const THUMB_WIDTH = 480;
+    
     /**
      * @var integer
      *
@@ -203,12 +206,17 @@ class Content
     
      public function getThumbAbsolutePath()
     {
-        return null === $this->path ? null : $this->getUploadRootDir().'/min-'.$this->path;
+        return null === $this->path ? null : $this->getUploadRootDir().'/min/'.$this->path;
     }
 
     public function getWebPath()
     {
         return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+    }
+
+    public function getThumbWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().'/min/'.$this->path;
     }
 
     protected function getUploadRootDir()
@@ -252,8 +260,8 @@ class Content
         copy($this->tmpPath, $path);
         
         // generate thumbnail
-        //$thumbnailPath = $this->getUploadRootDir() . '/min-' . $this->path;
-        //CommonHelper::resizeImage($this->getAbsolutePath(), $thumbnailPath, self::THUMB_WIDTH);
+        $thumbnailPath = $this->getUploadRootDir() . '/min/' . $this->path;
+        CommonHelper::resizeImage($this->getAbsolutePath(), $thumbnailPath, self::THUMB_WIDTH);
 
         unset($this->tmpFile);
     }

@@ -5,6 +5,7 @@ sharimg.add_content: "Share"
 sharimg.random: "Random"
 
 api.content: "content"
+api.contents: "contents"
 
 error.ok: "OK"
 error.bad_arg: "Invalid arguments"

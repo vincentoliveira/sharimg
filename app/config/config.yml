@@ -2,6 +2,10 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
 
+parameters:
+    api.default.count: 20
+    sharimg.content.pagination: 50
+
 framework:
     #esi:             ~
     translator:      { fallback: %locale% }

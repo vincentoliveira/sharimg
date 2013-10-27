@@ -2,13 +2,15 @@
 
 namespace Sharimg\ContentBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sharimg\DefaultBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sharimg\DefaultBundle\Entity\Content;
 
 /**
  * DefaultController
  */
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     /**
      * Homepage
@@ -18,7 +20,25 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $params = array(
+            'count' => $this->container->getParameter('sharimg.content.pagination'),
+        );
+        $contents = $this->getRepository('Content')->getVisibleList($params);
+        
+        return array('contents' => $contents);
+    }
+    
+    /**
+     * View content details
+     * 
+     * @Template
+     * @ParamConverter("content", class="SharimgDefaultBundle:Content")
+     * @param Content $content
+     * @return Response
+     */
+    public function viewAction(Content $content)
+    {
+        return array('content' => $content);
     }
     
     
@@ -31,16 +51,20 @@ class DefaultController extends Controller
     public function addAction()
     {
         $request = $this->getRequest();
-        $postParams = $request->request->all();
         $errors = array();
+        $params = array();
         
         if ($request->getMethod() == 'POST') {
+            $postParams = $request->request->all();
+            $fileParams = $request->files->all();
+            $params = array_merge($postParams, $fileParams);
+        
             $formHandler = $this->container->get('sharimg_content.content_form_handler');
-            $isValid = $formHandler->isValid($postParams);
+            $isValid = $formHandler->isValid($params);
             if ($isValid === true) {
-                $contentId = $formHandler->hydrateEntity($postParams);
+                $contentId = $formHandler->hydrateEntity($params);
                 if ($contentId !== false) {
-                    // redirect to content
+                    return $this->redirectToRoute('sharimg_content_view', array('content' => $contentId));
                 }
                 $errors['globals'][] = 'content.error.internal_error';
             } else {
@@ -49,7 +73,7 @@ class DefaultController extends Controller
         }
         
         return array(
-            'input_data' => $postParams,
+            'input_data' => $params,
             'errors' => $errors,
         );
     }

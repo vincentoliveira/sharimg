@@ -1,6 +1,6 @@
 <?php
 
-namespace FootyJokes\APIBundle\Entity\Repository;
+namespace Sharimg\DefaultBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -11,11 +11,10 @@ class ContentRepository extends EntityRepository
 {
     /**
      * Get visible contents (paginated)
-     * @param $first
-     * @param $maxResults
+     * @param array $params
      * @return array
      */
-    public function getVisible($first, $maxResults)
+    public function getVisibleList($params = array())
     {
         $query = $this->createQueryBuilder('content')
                 ->where('content.visible = true')
@@ -25,11 +24,16 @@ class ContentRepository extends EntityRepository
                 ->addOrderBy('content.id', 'DESC')
         ;
         
-        if ($first > 0) {
-            $query->setFirstResult($first);
+        if (isset($params['count'])) {
+            $query->setMaxResults($params['count']);
         }
-        if ($maxResults > 0) {
-            $query->setMaxResults($maxResults);
+        if (isset($params['since_id'])) {
+            $query->andWhere('content.id > :since_id')
+                    ->setParameter(':since_id', $params['since_id']);
+        }
+        if (isset($params['max_id'])) {
+            $query->andWhere('content.id < :max_id')
+                    ->setParameter(':max_id', $params['max_id']);
         }
         
         return $query->getQuery()->getArrayResult();
@@ -110,5 +114,20 @@ class ContentRepository extends EntityRepository
             'title' => $content->getTitle(),
             'path' => $content->getPath(),
         );
+    }
+    
+    /**
+     * Get content details
+     * @param int $contentId
+     * @return Content
+     */
+    public function getContentDetails($contentId)
+    {
+        $queryBuilder = $this->createQueryBuilder('content')
+                ->where('content.id = :contentId')
+                ->setParameter(':contentId', $contentId)
+        ;
+        
+        return $queryBuilder->getQuery()->getArrayResult();
     }
 }

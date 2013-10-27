@@ -5,9 +5,21 @@ sharimg_content_homepage:
 sharimg_content_add:
     pattern:  /content/add
     defaults: { _controller: SharimgContentBundle:Default:add }
+    
+sharimg_content_view:
+    pattern:  /content/{content}
+    defaults: { _controller: SharimgContentBundle:Default:view }
 
 sharimg_api_content_add:
     pattern:  /api/add_content.json
     defaults: { _controller: SharimgContentBundle:Api:add }
     requirements:
         _method: POST
+
+sharimg_api_content_view:
+    pattern:  /api/content.json
+    defaults: { _controller: SharimgContentBundle:Api:content }
+    
+sharimg_api_content_list:
+    pattern:  /api/content_list.json
+    defaults: { _controller: SharimgContentBundle:Api:list }
