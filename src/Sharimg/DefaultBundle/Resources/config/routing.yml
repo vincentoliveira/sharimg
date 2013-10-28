@@ -4,4 +4,4 @@ sharimg_default_homepage:
     
 sharimg_default_helloworld:
     pattern:  /helloworld
-    defaults: { _controller: SharimgDefaultBundle:Default:helloworldAction }
+    defaults: { _controller: SharimgDefaultBundle:Default:helloworld }

@@ -2,14 +2,14 @@
 
 namespace Sharimg\DefaultBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sharimg\DefaultBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * CommonBundle DefaultController
  */
-class DefaultController extends Controller
-{
+class DefaultController extends BaseController
+{    
     /**
      * Homepage
      * 
@@ -18,7 +18,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        return $this->redirectToRoute('sharimg_content_homepage');
     }
     
     /**
