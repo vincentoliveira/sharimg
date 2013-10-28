@@ -1,7 +1,7 @@
 parameters:
-#    sharimg_content.example.class: Sharimg\ContentBundle\Example
+    sharimg_content.content_form_handler.class: Sharimg\ContentBundle\Service\ContentFormHandler
 
 services:
-#    sharimg_content.example:
-#        class: %sharimg_content.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    sharimg_content.content_form_handler:
+        class: %sharimg_content.content_form_handler.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

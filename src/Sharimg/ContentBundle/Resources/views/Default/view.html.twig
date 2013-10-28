@@ -1,0 +1,8 @@
+{% extends "SharimgDefaultBundle::base.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ content.description }}</h1>
+    <img src="{{ asset('images/' ~ content.path) }}" alt=".">
+</div>
+{% endblock %}

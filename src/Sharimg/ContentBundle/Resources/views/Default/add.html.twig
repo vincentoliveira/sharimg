@@ -1,0 +1,9 @@
+{% extends "SharimgDefaultBundle::base.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ 'content.add'|trans }}</h1>
+
+    {% include 'SharimgContentBundle:Forms:add.html.twig' with {'input_data': input_data, 'errors': errors} %}
+</div>
+{% endblock %}

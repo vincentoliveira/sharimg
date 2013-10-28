@@ -1,0 +1,39 @@
+{% macro render_form(name, label, type, value, errors) %}
+{% spaceless %}
+    <div class="form-group">
+        <label for="{{ name }}">{{ label }}</label>
+        {% if errors is not empty %}
+            <ul class="errors">
+                {% for error in errors %}<li class="error">{{ error|trans|raw }}</li>{% endfor %}
+            </ul>
+        {% endif %}
+        <input class="form-control" type="{{ type }}" name="{{ name }}" id="{{ name }}" value="{{ value }}"/>
+    </div>
+{% endspaceless %}
+{% endmacro %}
+
+{% import _self as forms %}
+
+<form role="form" method="POST"  enctype="multipart/form-data">
+    {% if errors.globals is defined and errors.globals is not empty %}
+        <ul class="errors">
+            {% for error in errors.globals %}<li class="error">{{ error|trans|raw }}</li>{% endfor %}
+        </ul>
+    {% endif %}
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ 'content.select_content'|trans }}</div>
+        <div class="panel-body">
+            {{ forms.render_form('file_input', 'content.file_input'|trans, 'file', '', errors.file_input|default()) }}
+            {{ forms.render_form('content_url', 'content.or_content_url'|trans, 'url', input_data.content_url|default(), errors.content_url|default()) }}
+        </div>
+    </div>
+    {{ forms.render_form('description', 'content.description'|trans, 'test', input_data.description|default(), errors.description|default()) }}
+    {{ forms.render_form('from', 'content.from'|trans, 'test', input_data.from|default(), errors.from|default()) }}
+    {{ forms.render_form('date', 'content.date'|trans, 'date', input_data.date|default(), errors.date|default()) }}
+    <div class="checkbox">
+        <label>
+            <input type="checkbox"  name="is_visible" {% if input_data.is_visible is defined and input_data.is_visible %}checked{% endif %} > {{ 'content.is_visible'|trans }}
+        </label>
+    </div>
+    <button type="submit" id="submit-content" class="btn btn-default">{{ 'content.submit'|trans }}</button>
+</form>
