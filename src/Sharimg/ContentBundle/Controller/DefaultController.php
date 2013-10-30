@@ -41,6 +41,18 @@ class DefaultController extends BaseController
         return array('content' => $content);
     }
     
+    /**
+     * View random content details
+     * 
+     * @Template("SharimgContentBundle:Default:view.html.twig")
+     * @return Response
+     */
+    public function randomAction()
+    {
+        $content = $this->getRepository('SharimgContentBundle:Content')->getRandom();
+        return array('content' => $content);
+    }
+    
     
     /**
      * Homepage

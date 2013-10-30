@@ -111,11 +111,7 @@ class ContentRepository extends EntityRepository
             return null;
         }
         
-        return array(
-            'id' => $content->getId(),
-            'title' => $content->getTitle(),
-            'path' => $content->getPath(),
-        );
+        return $content;
     }
     
     /**
@@ -126,6 +122,8 @@ class ContentRepository extends EntityRepository
     public function getContentDetails($contentId)
     {
         $queryBuilder = $this->createQueryBuilder('content')
+                ->select('content, media')
+                ->leftJoin('content.media', 'media')
                 ->where('content.id = :contentId')
                 ->setParameter(':contentId', $contentId)
         ;

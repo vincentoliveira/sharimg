@@ -6,6 +6,10 @@ sharimg_content_add:
     pattern:  /content/add
     defaults: { _controller: SharimgContentBundle:Default:add }
     
+sharimg_content_random:
+    pattern:  /content/random
+    defaults: { _controller: SharimgContentBundle:Default:random }
+    
 sharimg_content_view:
     pattern:  /content/{content}
     defaults: { _controller: SharimgContentBundle:Default:view }

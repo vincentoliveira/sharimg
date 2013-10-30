@@ -45,12 +45,28 @@ class ApiController extends BaseController
      */
     public function contentAction()
     {
+        $random = $this->getRequest()->query->get('random');
         $contentId = $this->getRequest()->query->get('content_id');
-        if (empty($contentId)) {
+        if ((empty($random) || $random === '0' || $random === 'f' || $random === 'false') && empty($contentId)) {
             return new JsonResponse($this->error(self::ERROR_BAD_ARG));
         }
         
-        $content = $this->getRepository('SharimgContentBundle:Content')->getContentDetails(intval($contentId));
+        if (!empty($contentId)) {
+            $content = $this->getRepository('SharimgContentBundle:Content')->getContentDetails(intval($contentId));
+        } else {
+            $contentEntity = $this->getRepository('SharimgContentBundle:Content')->getRandom();
+            $media = $contentEntity->getMedia();
+            $content = array();
+            $content['id'] = $contentEntity->getId();
+            $content['date'] = $contentEntity->getDate();
+            $content['description'] = $contentEntity->getDescription();
+            $content['source'] = $contentEntity->getSource();
+            $content['visible'] = $contentEntity->getVisible();
+            $content['media'] = array();
+            $content['media']['id'] = $media->getId();
+            $content['media']['uploadDate'] = $media->getUploadDate();
+            $content['media']['path'] = $media->getPath();
+        }
         return new JsonResponse(array('content' => $content));
     }
     

@@ -22,10 +22,12 @@
                 <li class="{% if currentPath == path('sharimg_content_homepage') %}active{% endif %}">
                     <a href="{{ path('sharimg_content_homepage') }}">{{ 'sharimg.menu.contents'|trans }}</a>
                 </li>
+                <li class="{% if currentPath == path('sharimg_content_random') %}active{% endif %}">
+                    <a href="{{ path('sharimg_content_random') }}">{{ 'sharimg.menu.random'|trans }}</a>
+                </li>
                 <li class="{% if currentPath == path('sharimg_content_add') %}active{% endif %}">
                     <a href="{{ path('sharimg_content_add') }}">{{ 'sharimg.menu.add_content'|trans }}</a>
                 </li>
-                <li class="active"><a href="#">{{ 'sharimg.menu.random'|trans }}</a></li>
             </ul>
                 
             <ul class="nav navbar-nav navbar-right">
