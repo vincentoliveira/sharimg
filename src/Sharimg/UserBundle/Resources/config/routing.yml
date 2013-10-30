@@ -1,3 +1,7 @@
 sharimg_user_homepage:
-    pattern:  /hello/{name}
+    pattern:  /hello
     defaults: { _controller: SharimgUserBundle:Default:index }
+
+sharimg_user_profile:
+    pattern:  /profile
+    defaults: { _controller: SharimgUserBundle:Default:profile }

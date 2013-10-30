@@ -2,12 +2,12 @@
 
 namespace Sharimg\DefaultBundle\Controller;
 
-use Sharimg\DefaultBundle\Controller\BaseController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Base API Controller
  */
-class ApiController extends BaseController
+class ApiController extends Controller
 {
     const ERROR_OK          = 0;
     const ERROR_BAD_ARG     = 1;
@@ -18,6 +18,31 @@ class ApiController extends BaseController
         self::ERROR_BAD_ARG => 'error.bad_arg',
         self::ERROR_INTERNAL => 'error.internal',
     );
+    
+    /**
+     * Translate $msg
+     * @param string $msg
+     * @param array $params
+     * @return string translation
+     */
+    public function trans($msg, $params = array())
+    {
+        return $this->get('translator')->trans($msg);
+    }
+    
+    /**
+     * Get entity repository
+     * @param string $persistentObjectName
+     * @return Entityrepository
+     */
+    public function getRepository($persistentObjectName)
+    {
+        if (!empty($persistentObjectName)) {
+            $persistentObjectName = 'SharimgDefaultBundle:'.$persistentObjectName;
+        }
+        
+        return $this->getDoctrine()->getRepository($persistentObjectName);
+    }
     
     /**
      * Return error array (err_no, err_msg)

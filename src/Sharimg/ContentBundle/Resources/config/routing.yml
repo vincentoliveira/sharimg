@@ -1,5 +1,5 @@
 sharimg_content_homepage:
-    pattern:  /
+    pattern:  /contents
     defaults: { _controller: SharimgContentBundle:Default:index }
     
 sharimg_content_add:

@@ -2,12 +2,33 @@
 
 namespace Sharimg\DefaultBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sharimg\DefaultBundle\Controller\BaseController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
-{
+/**
+ * CommonBundle DefaultController
+ */
+class DefaultController extends BaseController
+{    
+    /**
+     * Homepage
+     * 
+     * @Template
+     * @return Response
+     */
     public function indexAction()
     {
-        return $this->render('SharimgDefaultBundle:Default:index.html.twig');
+        return $this->redirectToRoute('sharimg_content_homepage');
+    }
+    
+    /**
+     * Hello world test page
+     * 
+     * @Template
+     * @return Response
+     */
+    public function helloworldAction()
+    {
+        return array();
     }
 }

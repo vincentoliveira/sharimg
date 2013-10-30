@@ -1,8 +1,20 @@
 ## YAML Template.
 ---
 
-sharimg.add_content: "Share"
-sharimg.random: "Random"
+sharimg.sharimg: "Sharimg"
+sharimg.copyright: "Copyright Sharimg 2013"
+
+sharimg.menu.contents: "Contents"
+sharimg.menu.add_content: "Share"
+sharimg.menu.random: "Random"
+
+sharimg.login: "Login"
+sharimg.logged_in_as: "Logged in as %username%"
+sharimg.logout: "Logout"
+sharimg.sign_up: "Sign up"
+
+profile.show.username: "Username"
+profile.show.email: "Email"
 
 api.content: "content"
 api.contents: "contents"

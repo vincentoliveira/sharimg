@@ -5,25 +5,38 @@
     {% set currentPath = '' %}
 {% endif %}
 
-<div class="navbar navbar-default" role="navigation">
+<header class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('sharimg_content_homepage') }}">SharImg</a>
+            <a class="navbar-brand" href="{{ path('sharimg_default_homepage') }}">{{ 'sharimg.sharimg'|trans }}</a>
         </div>
-        <div class="collapse navbar-collapse">
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
+                <li class="{% if currentPath == path('sharimg_content_homepage') %}active{% endif %}">
+                    <a href="{{ path('sharimg_content_homepage') }}">{{ 'sharimg.menu.contents'|trans }}</a>
+                </li>
                 <li class="{% if currentPath == path('sharimg_content_add') %}active{% endif %}">
-                    <a href="{{ path('sharimg_content_add') }}">{{ 'sharimg.add_content'|trans }}</a>
+                    <a href="{{ path('sharimg_content_add') }}">{{ 'sharimg.menu.add_content'|trans }}</a>
                 </li>
-                <li>
-                    <a href="#">{{ 'sharimg.random'|trans }}</a>
-                </li>
+                <li class="active"><a href="#">{{ 'sharimg.menu.random'|trans }}</a></li>
+            </ul>
+                
+            <ul class="nav navbar-nav navbar-right">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <li><a href="{{ path('sharimg_user_profile') }}">{{ 'sharimg.logged_in_as'|trans({'%username%': app.user.username}) }}</a></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}">{{ 'sharimg.logout'|trans({}) }}</a></li>
+                {% else %}
+                    <li><a href="{{ path('fos_user_registration_register') }}">{{ 'sharimg.sign_up'|trans }}</a></li>
+                    <li><a href="{{ path('fos_user_security_login') }}">{{ 'sharimg.login'|trans }}</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
-</div>
+</header>
