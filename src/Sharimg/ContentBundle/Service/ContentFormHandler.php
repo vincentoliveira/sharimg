@@ -4,7 +4,7 @@ namespace Sharimg\ContentBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
-use Sharimg\DefaultBundle\Entity\Content;
+use Sharimg\ContentBundle\Entity\Content;
 
 /**
  * ContentFormHandler: Handle content form
@@ -29,15 +29,19 @@ class ContentFormHandler
     {
         $errors = array();
         if ((!isset($params['file_input']) or empty($params['file_input'])) &&
-                (!isset($params['content_url']) or empty($params['content_url']))) {
+                (!isset($params['media_url']) or empty($params['media_url']))) {
             $errors['file_input'][] = 'content.error.empty_file_input';
-            $errors['content_url'][] = 'content.error.empty_content_url';
+            $errors['media_url'][] = 'content.error.empty_media_url';
         }
         
         if ((isset($params['file_input']) and !empty($params['file_input'])) &&
-                (isset($params['content_url']) and !empty($params['content_url']))) {
+                (isset($params['media_url']) and !empty($params['media_url']))) {
             $errors['file_input'][] = 'content.error.choose_one_content';
-            $errors['content_url'][] = 'content.error.choose_one_content';
+            $errors['media_url'][] = 'content.error.choose_one_content';
+        }
+        
+        if (!isset($params['description']) or empty($params['description'])) {
+            $errors['description'][] = 'content.error.description_must_be_filled';
         }
         
         return empty($errors) ? true : $errors;
@@ -50,49 +54,44 @@ class ContentFormHandler
      */
     public function hydrateEntity(Array $params)
     {
-        $content = new Content();
-        
-        $content->setDescription($this->getPostParams($params, 'description'));
-        $content->setFrom($this->getPostParams($params, 'from'));
-        $content->setVisible(isset($params['is_visible']));
-        
-        // set date
         try {
-            $date = new \DateTime($this->getPostParams($params, 'date'));
-        } catch (\Exception $e) {
-            $date = new \DateTime();
-        }
-        $content->setDate($date);
-        
-        // content
-        $contentUrl = $this->getPostParams($params, 'content_url');
-        if (!empty($contentUrl)) {
-            $filename = sha1(uniqid(mt_rand(), true));
-            $path = '/tmp/' . $filename;
+            $content = new Content();
+
+            $content->setDescription($this->getPostParams($params, 'description'));
+            $content->setSource($this->getPostParams($params, 'source'));
+            $content->setVisible(isset($params['is_visible']));
+
+            // set date
+            try {
+                $date = new \DateTime($this->getPostParams($params, 'date'));
+            } catch (\Exception $e) {
+                $date = new \DateTime();
+            }
+            $content->setDate($date);
+
+            $mediaHandler = $this->container->get('sharimg_content.media_handler');
             
-            $ch = curl_init($contentUrl);
-            $fp = fopen($path, 'wb');
-            curl_setopt($ch, CURLOPT_FILE, $fp);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_exec($ch);
-            curl_close($ch);
-            fclose($fp);
+            // media
+            $mediaUrl = $this->getPostParams($params, 'media_url');
+            if (!empty($mediaUrl)) {
+                $media = $mediaHandler->createMediaFromUrl($mediaUrl);
+                $content->setMedia($media);
+            }
+            else {
+                $inputFile = $this->getPostParams($params, 'file_input');
+                $media = $mediaHandler->createMediaFromFile($inputFile);
+                $content->setMedia($media);
+            }
             
-            $content->setTmpPath($path);
-        }
-        else {
-            $content->setTmpFile($this->getPostParams($params, 'file_input'));
-        }
-        
-        $this->em->persist($content);
-        
-        try {
+            $this->em->persist($content);
             $this->em->flush();
-        } catch (\Exception $e) {
-            return false;
+            
+            return $content->getId();
         }
-        
-        return $content->getId();
+        catch (\Exception $e) {
+            throw $e;
+            return false;            
+        }
     }
     
     /**

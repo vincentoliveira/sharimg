@@ -28,10 +28,6 @@ class BaseController extends Controller
      */
     public function getRepository($persistentObjectName)
     {
-        if (!empty($persistentObjectName)) {
-            $persistentObjectName = 'SharimgDefaultBundle:'.$persistentObjectName;
-        }
-        
         return $this->getDoctrine()->getRepository($persistentObjectName);
     }
     

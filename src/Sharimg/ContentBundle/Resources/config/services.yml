@@ -1,7 +1,16 @@
 parameters:
+    media.tmp_download_dir: /tmp/
+    media.upload_dir: images/
+    media.thumbnail.upload_dir: images/min
+    media.thumbnail.width: 480
     sharimg_content.content_form_handler.class: Sharimg\ContentBundle\Service\ContentFormHandler
+    sharimg_content.media_handler.class: Sharimg\ContentBundle\Service\MediaHandler
 
 services:
     sharimg_content.content_form_handler:
         class: %sharimg_content.content_form_handler.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+    
+    sharimg_content.media_handler:
+        class: %sharimg_content.media_handler.class%
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]

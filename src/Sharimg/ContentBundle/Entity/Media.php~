@@ -1,0 +1,148 @@
+<?php
+
+namespace Sharimg\ContentBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Content
+ *
+ * @ORM\Table(name="media")
+ * @ORM\Entity(repositoryClass="Sharimg\ContentBundle\Repository\MediaRepository")
+ * @ORM\HasLifecycleCallbacks
+ */
+class Media
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="string", length=15, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="uploadDate", type="datetime", nullable=false)
+     */
+    private $uploadDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=127, nullable=false)
+     */
+    private $path;
+    
+    private $tmpPath;
+    private $tmpFile;
+
+    public function setTmpPath($tmpPath)
+    {
+        $this->tmpPath = $tmpPath;
+        return $this;
+    }
+    public function setTmpFile($tmpFile)
+    {
+        $this->tmpFile = $tmpFile;
+        return $this;
+    }
+
+    /**
+     * Set id
+     *
+     * @param string $id
+     * @return Media
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get uploadDate
+     *
+     * @return \DateTime 
+     */
+    public function getUploadDate()
+    {
+        return $this->uploadDate;
+    }
+    
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().$this->path;
+    }
+    
+     public function getThumbAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getThumbUploadRootDir().$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().$this->path;
+    }
+
+    public function getThumbWebPath()
+    {
+        return null === $this->path ? null : $this->getThumbUploadDir().$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getThumbUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getThumbUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        return 'images/';
+    }
+
+    protected function getThumbUploadDir()
+    {
+        return 'images/min/';
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     */
+    public function preUpload()
+    {
+        $this->uploadDate = new \DateTime();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+        if ($file = $this->getThumbAbsolutePath()) {
+            unlink($file);
+        }
+    }
+}

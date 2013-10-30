@@ -1,7 +1,15 @@
 #! /bin/sh
 
-git pull origin develop
-php composser.phar update
+PULL=$1
+
+if [ ! -z $NOPULL ]
+then
+    git pull origin develop
+    php composer.phar update
+fi
+
+chmod -R 0777 app/cache
+chmod -R 0777 app/logs
 
 sudo -u www-data php app/console doctrine:database:drop --force
 sudo -u www-data php app/console doctrine:database:create
@@ -11,10 +19,9 @@ sudo -u www-data php app/console assets:install web --symlink
 sudo -u www-data php app/console fos:js-routing:dump
 
 echo "Clear images"
-rm -f web/images/*
+rm -rf web/images/*
+mkdir web/images/min
 
-chmod -R 0777 app/cache
-chmod -R 0777 app/logs
 sudo -u www-data php app/console cache:clear --no-warmup
 sudo -u www-data php app/console cache:clear --env=test --no-warmup
 sudo -u www-data php app/console cache:clear --env=prod --no-warmup

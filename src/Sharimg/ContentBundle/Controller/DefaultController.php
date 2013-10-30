@@ -5,7 +5,7 @@ namespace Sharimg\ContentBundle\Controller;
 use Sharimg\DefaultBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sharimg\DefaultBundle\Entity\Content;
+use Sharimg\ContentBundle\Entity\Content;
 
 /**
  * DefaultController
@@ -23,7 +23,7 @@ class DefaultController extends BaseController
         $params = array(
             'count' => $this->container->getParameter('sharimg.content.pagination'),
         );
-        $contents = $this->getRepository('Content')->getVisibleList($params);
+        $contents = $this->getRepository('SharimgContentBundle:Content')->getVisibleList($params);
         
         return array('contents' => $contents);
     }
@@ -32,7 +32,7 @@ class DefaultController extends BaseController
      * View content details
      * 
      * @Template
-     * @ParamConverter("content", class="SharimgDefaultBundle:Content")
+     * @ParamConverter("content", class="SharimgContentBundle:Content")
      * @param Content $content
      * @return Response
      */

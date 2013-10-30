@@ -45,10 +45,10 @@ class ApiControllerTest extends WebTestCase
 
         $params = array(
             'description' => '',
-            'from' => '',
+            'source' => '',
             'is_visible' => '',
             'date' => '',
-            'content_url' => '',
+            'media_url' => '',
         );
         
         $client->request('POST', '/api/add_content.json', $params);
@@ -67,10 +67,10 @@ class ApiControllerTest extends WebTestCase
 
         $params = array(
             'description' => 'Google Logo',
-            'from' => 'Google.fr',
+            'source' => 'Google.fr',
             'is_visible' => '0',
             'date' => '',
-            'content_url' => 'https://www.google.fr/images/srpr/logo11w.png',
+            'media_url' => 'https://www.google.fr/images/srpr/logo11w.png',
         );
         
         $client->request('POST', '/api/add_content.json', $params);
@@ -91,10 +91,10 @@ class ApiControllerTest extends WebTestCase
 
         $params = array(
             'description' => 'Google Logo',
-            'from' => 'FileUpload',
+            'source' => 'FileUpload',
             'is_visible' => '0',
             'date' => '',
-            'content_url' => '',
+            'media_url' => '',
         );
         $contentFile = new UploadedFile('data/content.png', 'content.png', 'image/png');
         

@@ -4,19 +4,23 @@
 <div class="container">
     <h1>{{ 'content.contents'|trans }}</h1>
 
-    {% for content in contents %}
-    <div class="row">
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <a href="{{ path('sharimg_content_view', {content: content.id}) }}">
-                    <img src="{{ asset('images/min/' ~ content.path) }}" alt=".">
-                    <div class="caption">
+    <div id="timeline">
+        {% for content in contents %}
+            {% if loop.index0 % 4 == 0 %}
+            <div class="row">
+            {% endif %}
+
+                <div class="post col-sm-6 col-md-3">
+                    <a href="{{ path('sharimg_content_view', {content: content.id}) }}">
+                        <div class="media-thumbnail" style="background: url({{ asset('images/min/' ~ content.media.path) }}) 50% 50% no-repeat"></div>
                         <h3>{{ content.description }}</h3>
-                    </div>
-                </a>
+                    </a>
+                </div>
+
+            {% if loop.index0 % 4 == 3 or loop.last %}
             </div>
-        </div>
+            {% endif %}
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}

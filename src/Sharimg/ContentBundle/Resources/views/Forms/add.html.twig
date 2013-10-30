@@ -24,11 +24,11 @@
         <div class="panel-heading">{{ 'content.select_content'|trans }}</div>
         <div class="panel-body">
             {{ forms.render_form('file_input', 'content.file_input'|trans, 'file', '', errors.file_input|default()) }}
-            {{ forms.render_form('content_url', 'content.or_content_url'|trans, 'url', input_data.content_url|default(), errors.content_url|default()) }}
+            {{ forms.render_form('media_url', 'content.or_media_url'|trans, 'url', input_data.media_url|default(), errors.media_url|default()) }}
         </div>
     </div>
     {{ forms.render_form('description', 'content.description'|trans, 'test', input_data.description|default(), errors.description|default()) }}
-    {{ forms.render_form('from', 'content.from'|trans, 'test', input_data.from|default(), errors.from|default()) }}
+    {{ forms.render_form('source', 'content.source'|trans, 'test', input_data.source|default(), errors.source|default()) }}
     {{ forms.render_form('date', 'content.date'|trans, 'date', input_data.date|default(), errors.date|default()) }}
     <div class="checkbox">
         <label>
