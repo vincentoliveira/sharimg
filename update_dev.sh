@@ -1,5 +1,8 @@
 #! /bin/sh
 
+git pull origin develop
+php composser.phar update
+
 sudo -u www-data php app/console doctrine:database:drop --force
 sudo -u www-data php app/console doctrine:database:create
 sudo -u www-data php app/console doctrine:schema:update --force
