@@ -1,0 +1,16 @@
+parameters:
+  twitter_api_manager.tweet_count: 40
+  twitter_api_manager.consumer_key: ~
+  twitter_api_manager.consumer_secret: ~
+  twitter_api_manager.oauth_token: ~
+  twitter_api_manager.oauth_secret: ~
+  
+  twitter_api_manager.usertimeline_url: 'https://api.twitter.com/1.1/statuses/user_timeline.json'
+  twitter_api_manager.hometimeline_url: 'https://api.twitter.com/1.1/statuses/home_timeline.json'
+
+  sharimg_import.twitter_api_manager.class: Sharimg\ImportBundle\Service\TwitterApiManager
+
+services:
+  sharimg_import.twitter_api_manager:
+    class: %sharimg_import.twitter_api_manager.class%
+    arguments:  ["@service_container"]

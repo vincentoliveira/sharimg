@@ -1,0 +1,15 @@
+sharimg_import_homepage:
+    pattern:  /
+    defaults: { _controller: SharimgImportBundle:Default:index }
+
+sharimg_import_twitter_user_timeline:
+    pattern:  /twitter/usertimeline/{screenName}
+    defaults: { _controller: SharimgImportBundle:Twitter:userTimeline }
+    options:
+        expose: true
+
+sharimg_import_twitter_home_timeline:
+    pattern:  /twitter/hometimeline/{screenName}
+    defaults: { _controller: SharimgImportBundle:Twitter:homeTimeline }
+    options:
+        expose: true

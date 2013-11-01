@@ -18,6 +18,8 @@ sudo -u www-data php app/console doctrine:schema:update --force
 sudo -u www-data php app/console assets:install web --symlink
 sudo -u www-data php app/console fos:js-routing:dump
 
+sudo -u www-data php app/console fos:user:create admin admin@sharimg.com admin123 --super-admin
+
 echo "Clear images"
 rm -rf web/images/*
 mkdir web/images/min

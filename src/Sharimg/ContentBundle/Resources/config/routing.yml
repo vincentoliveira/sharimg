@@ -19,6 +19,8 @@ sharimg_api_content_add:
     defaults: { _controller: SharimgContentBundle:Api:add }
     requirements:
         _method: POST
+    options:
+        expose: true
 
 sharimg_api_content_view:
     pattern:  /api/content.json

@@ -9,6 +9,10 @@ sharimg_content:
 sharimg_default:
     resource: "@SharimgDefaultBundle/Resources/config/routing.yml"
     prefix:   /
+    
+sharimg_import:
+    resource: "@SharimgImportBundle/Resources/config/routing.yml"
+    prefix:   /import
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

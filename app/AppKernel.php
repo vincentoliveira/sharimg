@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new \Sharimg\DefaultBundle\SharimgDefaultBundle(),
             new \Sharimg\ContentBundle\SharimgContentBundle(),
             new \Sharimg\UserBundle\SharimgUserBundle(),
+            new Sharimg\ImportBundle\SharimgImportBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

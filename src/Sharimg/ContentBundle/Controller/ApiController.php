@@ -21,7 +21,6 @@ class ApiController extends BaseController
         $postParams = $request->request->all();
         $fileParams = $request->files->all();
         $params = array_merge($postParams, $fileParams);
-        $errors = array();
         
         $formHandler = $this->container->get('sharimg_content.content_form_handler');
         $isValid = $formHandler->isValid($params);

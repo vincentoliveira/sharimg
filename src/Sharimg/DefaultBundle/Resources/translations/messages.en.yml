@@ -4,14 +4,14 @@
 sharimg.sharimg: "Sharimg"
 sharimg.copyright: "Copyright Sharimg 2013"
 
-sharimg.menu.contents: "Contents"
 sharimg.menu.add_content: "Share"
 sharimg.menu.random: "Random"
+sharimg.menu.import_content: "Import content"
 
-sharimg.login: "Login"
+sharimg.login: "Sign in"
 sharimg.logged_in_as: "Logged in as %username%"
 sharimg.logout: "Logout"
-sharimg.sign_up: "Sign up"
+sharimg.sign_up: "Register"
 
 profile.show.username: "Username"
 profile.show.email: "Email"

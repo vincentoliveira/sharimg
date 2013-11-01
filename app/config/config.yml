@@ -5,6 +5,12 @@ imports:
 parameters:
     api.default.count: 20
     sharimg.content.pagination: 50
+    
+    twitter_api_manager.tweet_count: 40
+    twitter_api_manager.consumer_key: eObWNf09kTyjRPB450LawQ
+    twitter_api_manager.consumer_secret: 1VYcabCY2tr8EQMtXEo1W96T5CZ71YHlZZ72Uvpw
+    twitter_api_manager.oauth_token: 43611096-p2HJtwuEQ7qCC5qhBQpzkcLsk48s1f2IMDYqZEX5W
+    twitter_api_manager.oauth_secret: PGUAuySawCOpvzpn2RqwPeclSsYaeZS5u8qdiNidtU
 
 framework:
     #esi:             ~

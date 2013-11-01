@@ -8,3 +8,5 @@ form.form-file{background:#eee;margin:-5px;padding:5px;}
     .post h3{height:75px;margin:5px;}
     .post .media-thumbnail{height:250px;width:250px;}
 }
+
+.tweet-title-input{min-width:150px;}
