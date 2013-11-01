@@ -35,8 +35,10 @@
                     <li><a href="{{ path('sharimg_user_profile') }}">{{ 'sharimg.logged_in_as'|trans({'%username%': app.user.username}) }}</a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">{{ 'sharimg.logout'|trans({}) }}</a></li>
                 {% else %}
+                    {#
                     <li><a href="{{ path('fos_user_security_login') }}">{{ 'sharimg.login'|trans }}</a></li>
                     <li><a href="{{ path('fos_user_registration_register') }}">{{ 'sharimg.sign_up'|trans }}</a></li>
+                    #}
                 {% endif %}
             </ul>
         </div>
