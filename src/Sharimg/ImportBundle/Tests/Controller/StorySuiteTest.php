@@ -1,6 +1,6 @@
 <?php
 
-namespace Sharimg\ContentBundle\Tests\Controller;
+namespace Sharimg\ImportBundle\Tests\Controller;
 
 use Behat\Behat\Console\BehatApplication;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -34,7 +34,7 @@ class StorySuiteTest extends WebTestCase
     public function scenariosMeetAcceptanceCriteria()
     {
         $input = new ArrayInput(array(
-                    'features' => '@SharimgContentBundle'
+                    'features' => '@SharimgImportBundle'
                  ));
 
         $output = new ConsoleOutput();
@@ -42,5 +42,6 @@ class StorySuiteTest extends WebTestCase
         $app->setAutoExit(false);
 
         $result = $app->run($input, $output);
-        $this->assertEquals(0, $result, 'At least one Behat test don\'t pass.');    }
+        $this->assertEquals(0, $result, 'At least one Behat test don\'t pass.');
+    }
 }

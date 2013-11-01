@@ -42,6 +42,5 @@ class StorySuiteTest extends WebTestCase
         $app->setAutoExit(false);
 
         $result = $app->run($input, $output);
-        $this->assertEquals(0, $result, 'Au moins un des scénarios Behat ne passe pas dans UserBundle, pour plus d\'infos voir dans build/logs/features/UserBundle/');
-    }
+        $this->assertEquals(0, $result, 'At least one Behat test don\'t pass.');    }
 }

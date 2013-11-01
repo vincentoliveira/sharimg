@@ -83,12 +83,15 @@ class TwitterApiManager
         
         $parameters = array();
         $parameters['screen_name'] = $screenName;
+        $parameters['count'] = $count;
+        $parameters['contributor_details'] = false;
         $timelineArray = $connection->get($apiUrl, $parameters);
         
         $timeline = array();
         foreach ($timelineArray as $tweet) {
             $tweetData = array();
             $tweetData['text'] = $tweet->text;
+            $tweetData['author'] = $tweet->user->screen_name;
             $tweetData['title'] = $this->getTitleFromTweet($tweet->text);
             
             $media = isset($tweet->entities->media) ? $tweet->entities->media : null;
