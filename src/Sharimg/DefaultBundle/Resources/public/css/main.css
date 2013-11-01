@@ -1,5 +1,7 @@
 form .error{color:red;}
 form.form-file{background:#eee;margin:-5px;padding:5px;}
+
+.post .media-thumbnail{height:250px;width:250px;}
 @media (min-width: 768px){
     .row{margin:20px 0 0;}
     .post{height:325px;overflow:hidden;}
