@@ -1,7 +1,7 @@
 parameters:
-#    sharimg_user.example.class: Sharimg\UserBundle\Example
+    sharimg_user.user_service.class: Sharimg\UserBundle\Service\UserService
 
 services:
-#    sharimg_user.example:
-#        class: %sharimg_user.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    sharimg_user.user_service:
+        class: %sharimg_user.user_service.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

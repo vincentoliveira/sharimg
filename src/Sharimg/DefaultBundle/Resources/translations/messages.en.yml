@@ -21,4 +21,7 @@ api.contents: "contents"
 
 error.ok: "OK"
 error.bad_arg: "Invalid arguments"
+error.missing_params: "Parameters are missing (%missing_params%)"
+error.unique_params: "Parameters (%unique_params%) must be unique and are already used."
+error.invalid_email_format: "Invalid email format"
 error.internal: "An unexpected error has occured"

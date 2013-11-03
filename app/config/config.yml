@@ -35,6 +35,9 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    form:
+        resources:
+            - 'form_div_layout.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -79,4 +82,4 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: Sharimg\DefaultBundle\Entity\User
+    user_class: Sharimg\UserBundle\Entity\User

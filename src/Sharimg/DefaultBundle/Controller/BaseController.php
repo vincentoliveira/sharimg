@@ -18,7 +18,7 @@ class BaseController extends Controller
      */
     public function trans($msg, $params = array())
     {
-        return $this->get('translator')->trans($msg);
+        return $this->get('translator')->trans($msg, $params);
     }
     
     /**

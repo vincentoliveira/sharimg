@@ -2,7 +2,6 @@
 
 namespace Sharimg\DefaultBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sharimg\DefaultBundle\Controller\BaseController;
 
 /**
@@ -10,13 +9,19 @@ use Sharimg\DefaultBundle\Controller\BaseController;
  */
 class ApiController extends BaseController
 {
-    const ERROR_OK          = 0;
-    const ERROR_BAD_ARG     = 1;
-    const ERROR_INTERNAL    = 127;
+    const ERROR_OK                  = 0;
+    const ERROR_BAD_ARG             = 1;
+    const ERROR_MISSING_PARAMS      = 2;
+    const ERROR_UNIQUE_PARAMS       = 3;
+    const ERROR_EMAIL_FORMAT        = 4;
+    const ERROR_INTERNAL            = 127;
     
     protected $errorMsg = array(
         self::ERROR_OK => 'error.ok',
         self::ERROR_BAD_ARG => 'error.bad_arg',
+        self::ERROR_MISSING_PARAMS => 'error.missing_params',
+        self::ERROR_UNIQUE_PARAMS => 'error.unique_params',
+        self::ERROR_EMAIL_FORMAT => 'invalid_email_format',
         self::ERROR_INTERNAL => 'error.internal',
     );
     
