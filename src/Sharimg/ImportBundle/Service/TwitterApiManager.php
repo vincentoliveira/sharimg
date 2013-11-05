@@ -44,6 +44,10 @@ class TwitterApiManager
         $parameters['contributor_details'] = false;
         $timelineArray = $connection->get($apiUrl, $parameters);
         
+        if ($timelineArray === null || !is_array($timelineArray)) {
+            return array();
+        }
+        
         $timeline = array();
         foreach ($timelineArray as $tweet) {
             $tweetData = array();
@@ -86,6 +90,10 @@ class TwitterApiManager
         $parameters['count'] = $count;
         $parameters['contributor_details'] = false;
         $timelineArray = $connection->get($apiUrl, $parameters);
+        
+        if ($timelineArray === null || !is_array($timelineArray)) {
+            return array();
+        }
         
         $timeline = array();
         foreach ($timelineArray as $tweet) {
