@@ -2,7 +2,7 @@
 
 PULL=$1
 
-if [ ! -z $NOPULL ]
+if [ ! -z $PULL ]
 then
     git pull origin develop
     php composer.phar update
@@ -21,7 +21,8 @@ sudo -u www-data php app/console fos:js-routing:dump
 sudo -u www-data php app/console fos:user:create admin admin@sharimg.com admin123 --super-admin
 
 echo "Clear images"
-rm -rf web/images/*
+rm -rf web/images
+mkdir web/images
 mkdir web/images/min
 
 sudo -u www-data php app/console cache:clear --no-warmup
