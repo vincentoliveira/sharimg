@@ -36,16 +36,15 @@ class ApiController extends BaseController
         if (isset($results['errors'])) {
             if (isset($results['errors']['missing_params'])) {
                 $missingParams = array('%missing_params%' => implode(', ', $results['errors']['missing_params']));
-                $errors = $this->error(self::ERROR_MISSING_PARAMS, $missingParams);
+                return $this->error(self::ERROR_MISSING_PARAMS, $missingParams);
             } else if (isset($results['errors']['email_format'])) {
-                $errors = $this->error(self::ERROR_EMAIL_FORMAT);
+                return $this->error(self::ERROR_EMAIL_FORMAT);
             } else if (isset($results['errors']['unique_parameters'])) {
                 $uniqueParams = array('%unique_params%' => implode(', ', $results['errors']['unique_parameters']));
-                $errors = $this->error(self::ERROR_UNIQUE_PARAMS, $uniqueParams);
+                return $this->error(self::ERROR_UNIQUE_PARAMS, $uniqueParams);
             } else {
-                $errors = $this->error(self::ERROR_INTERNAL);
+                return $this->error(self::ERROR_INTERNAL);
             }
-            return new JsonResponse($errors); 
         }
         
         return new JsonResponse(array('register' => $results));

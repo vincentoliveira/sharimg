@@ -19,7 +19,7 @@ class ContentRepository extends EntityRepository
         $query = $this->createQueryBuilder('content')
                 ->select('content, media')
                 ->leftJoin('content.media', 'media')
-                ->where('content.visible = true')
+                ->where('content.statusId > 0')
                 ->andWhere('content.date < :now')
                 ->setParameter(':now', new \DateTime())
                 ->orderBy('content.date', 'DESC')
@@ -86,7 +86,7 @@ class ContentRepository extends EntityRepository
     public function getRandom()
     {
         $queryBuilder = $this->createQueryBuilder('content')
-                ->where('content.visible = true')
+                ->where('content.statusId > 0')
         ;
 
         // count pictures

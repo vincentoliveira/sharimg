@@ -33,6 +33,6 @@ class AdminController extends BaseController
         
         $contents = $this->getRepository('SharimgContentBundle:Content')->getAll($first, $maxResults);
         
-        return array('contents' => $contents);
+        return array('pagination' => $contents);
     }
 }

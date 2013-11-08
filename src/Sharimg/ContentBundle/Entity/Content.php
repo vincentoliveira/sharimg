@@ -48,15 +48,23 @@ class Content
     /**
      * @var string
      *
+     * @ORM\ManyToOne(targetEntity="Sharimg\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="contributor_id", referencedColumnName="id")
+     */
+    private $contributor;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="source", type="string", length=31, nullable=true)
      */
     private $source;
     /**
      * @var boolean
      *
-     * @ORM\Column(name="visible", type="boolean")
+     * @ORM\Column(name="status_id", type="integer", length=2)
      */
-    private $visible;
+    private $statusId;
 
     /**
      * Get id
@@ -204,5 +212,51 @@ class Content
     public function getMedia()
     {
         return $this->media;
+    }
+
+    /**
+     * Set statusId
+     *
+     * @param boolean $statusId
+     * @return Content
+     */
+    public function setStatusId($statusId)
+    {
+        $this->statusId = $statusId;
+    
+        return $this;
+    }
+
+    /**
+     * Get statusId
+     *
+     * @return boolean 
+     */
+    public function getStatusId()
+    {
+        return $this->statusId;
+    }
+
+    /**
+     * Set contributor
+     *
+     * @param \Sharimg\UserBundle\Entity\User $contributor
+     * @return Content
+     */
+    public function setContributor(\Sharimg\UserBundle\Entity\User $contributor = null)
+    {
+        $this->contributor = $contributor;
+    
+        return $this;
+    }
+
+    /**
+     * Get contributor
+     *
+     * @return \Sharimg\UserBundle\Entity\User 
+     */
+    public function getContributor()
+    {
+        return $this->contributor;
     }
 }

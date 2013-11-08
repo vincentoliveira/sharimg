@@ -4,7 +4,6 @@
 content.contents: "Contents"
 content.moderate: "Moderate"
 
-
 content.add: "Share content"
 content.select_content: "Select the media you want to share"
 content.file_input: "File input"
@@ -22,3 +21,18 @@ content.error.empty_media_url: "<em>File input</em> field xor <em>Media url</em>
 content.error.choose_one_content: "<em>File input</em> field xor <em>Media url</em> field must be filled in"
 content.error.description_must_be_filled: "<em>Description</em> field must be filled in"
 content.error.internal_error: "An unexpected error has occured. Please try again later."
+
+content:
+  moderate:
+    content_id: "#"
+    media_id: "Media ID"
+    media: "Media"
+    description: "Description"
+    contributor: "Contributor"
+    source: "Source"
+    status: "Status"
+    actions: "Actions"
+    change_status: "Moderate"
+    
+    status_updated: "Status updated"
+    status_failed: "An error has occured"

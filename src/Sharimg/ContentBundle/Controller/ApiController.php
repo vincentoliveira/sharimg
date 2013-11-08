@@ -4,6 +4,7 @@ namespace Sharimg\ContentBundle\Controller;
 
 use Sharimg\DefaultBundle\Controller\ApiController as BaseController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 /**
  * ApiController
@@ -29,11 +30,11 @@ class ApiController extends BaseController
             if ($contentId !== false) {
                 return new JsonResponse(array($this->trans('api.content') => $contentId));
             } else {
-                return new JsonResponse($this->error(self::ERROR_INTERNAL));
+                return $this->error(self::ERROR_INTERNAL);
             }
         }
         
-        return new JsonResponse($this->error(self::ERROR_BAD_ARG));
+        return $this->error(self::ERROR_BAD_ARG);
     }
     
     
@@ -47,7 +48,7 @@ class ApiController extends BaseController
         $random = $this->getRequest()->query->get('random');
         $contentId = $this->getRequest()->query->get('content_id');
         if ((empty($random) || $random === '0' || $random === 'f' || $random === 'false') && empty($contentId)) {
-            return new JsonResponse($this->error(self::ERROR_BAD_ARG));
+            return $this->error(self::ERROR_BAD_ARG);
         }
         
         if (!empty($contentId)) {
@@ -81,5 +82,28 @@ class ApiController extends BaseController
         $list = $this->getRepository('SharimgContentBundle:Content')->getVisibleList($params);
         
         return new JsonResponse(array($this->trans('api.contents') => $list));
+    }
+    
+    /**
+     * Update status of 'content_id' to 'status_id'
+     * POST : status_id, content_id
+     * 
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function updateStatusAction()
+    {
+        $postParameters = $this->getRequest()->request->all();
+        $contentService = $this->container->get('sharimg_content.content_service');
+        $results = $contentService->updateStatus($postParameters);
+        
+        if ($results !== true) {
+            if (is_array($results)) {
+                return $this->error2($results);
+            } else {
+                return $this->error(self::ERROR_INTERNAL);
+            }
+        }
+        
+        return new JsonResponse(array('update_status' => true));
     }
 }

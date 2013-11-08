@@ -94,6 +94,7 @@ class ContentFormHandler
         }
     }
     
+    
     /**
      * Get POST parameter or default value
      * @param type $params

@@ -33,3 +33,11 @@ sharimg_api_content_view:
 sharimg_api_content_list:
     pattern:  /api/content_list.json
     defaults: { _controller: SharimgContentBundle:Api:list }
+    
+sharimg_api_content_list:
+    pattern:  /api/update_status.json
+    defaults: { _controller: SharimgContentBundle:Api:updateStatus }
+    requirements:
+        _method: POST
+    options:
+        expose: true

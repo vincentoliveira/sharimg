@@ -7,6 +7,12 @@ parameters:
     sharimg.content.pagination: 50
     moderate.content.pagination: 50
     
+    content.status:
+      0: Initialized
+      1: Rejected
+      2: Invisible
+      3: Visible
+    
     twitter_api_manager.tweet_count: 40
     twitter_api_manager.consumer_key: eObWNf09kTyjRPB450LawQ
     twitter_api_manager.consumer_secret: 1VYcabCY2tr8EQMtXEo1W96T5CZ71YHlZZ72Uvpw
@@ -39,6 +45,8 @@ twig:
     form:
         resources:
             - 'form_div_layout.html.twig'
+    globals:
+      content_status: %content.status%
 
 # Assetic Configuration
 assetic:

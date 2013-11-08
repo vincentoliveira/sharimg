@@ -10,3 +10,4 @@ form.form-file{background:#eee;margin:-5px;padding:5px;}
 }
 
 .tweet-title-input{min-width:150px;}
+.img-thumbnail {max-width:150px;max-height:150px;}
