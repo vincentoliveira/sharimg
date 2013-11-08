@@ -1,0 +1,28 @@
+{% extends "SharimgDefaultBundle::layout.html.twig" %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ 'analitycs.title'|trans  }}</h1>
+
+    <h2>{{ 'analitycs.search'|trans  }}</h2>
+    <div>
+        <form action="#" method="POST">
+            <p>
+                <label for="from">{{ 'analitycs.from'|trans }}</label>
+                <input type="date" name="date_from" value="{{ date_from }}" />
+            </p>
+            <p>
+                <label for="to">{{ 'analitycs.to'|trans }}</label>
+                <input type="date" name="date_to" value="{{ date_to }}" />
+            </p>
+            <p>
+                <button type="submit">{{ 'analitycs.submit'|trans  }}</button>
+            </p>
+        </form>
+    </div>
+
+    {% for file in files %}
+    <a href="{{ path('sharimg_analytics_logs', {logfile: file}) }}">{{ file }}</a> -- <a href="{{ asset(webDirectory ~ file) }}">{{ 'analitycs.download'|trans  }}</a><br />
+    {% endfor %}
+</div>
+{% endblock %}

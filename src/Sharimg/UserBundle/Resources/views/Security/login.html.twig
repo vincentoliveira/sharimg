@@ -1,7 +1,5 @@
 {% extends "SharimgDefaultBundle::layout.html.twig" %}
 
-{% trans_default_domain 'FOSUserBundle' %}
-
 {% block content %}
 
 <div class="container">
@@ -28,5 +26,7 @@
                 <button class="btn btn-success" type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans }}</button>
             </div>
         </form>
+        
+        <p><a href="{{ path('fos_user_registration_register') }}">{{ 'security.login.not_registered'|trans }}</a></p>
     </div>
 {% endblock content %}

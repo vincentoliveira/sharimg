@@ -19,7 +19,7 @@ class DefaultController extends BaseController
      * @return Response
      */
     public function indexAction()
-    {
+    {        
         $params = array(
             'count' => $this->container->getParameter('sharimg.content.pagination'),
         );

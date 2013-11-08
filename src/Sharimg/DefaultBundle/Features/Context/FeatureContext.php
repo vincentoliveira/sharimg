@@ -5,6 +5,7 @@ namespace Sharimg\DefaultBundle\Features\Context;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\Behat\Context\Step;
 
 //
 // Require 3rd-party libraries here:
@@ -41,17 +42,21 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
     {
         $this->kernel = $kernel;
     }
-
-//
-// Place your definition and hook methods here:
-//
-//    /**
-//     * @Given /^I have done something with "([^"]*)"$/
-//     */
-//    public function iHaveDoneSomethingWith($argument)
-//    {
-//        $container = $this->kernel->getContainer();
-//        $container->get('some_service')->doSomethingWith($argument);
-//    }
-//
+    
+    /**
+     * @Given /^I am logged as "([^"]*)" password "([^"]*)"$/
+     */
+    public function iAmLoggedAsPassword($user, $pwd)
+    {
+        /*
+         * And I fill in "_username" with "test"
+         */
+        $steps[] = new Step\Given('I am on "/login"');
+        $steps[] = new Step\Given('I fill in "_username" with "'.$user.'"');
+        $steps[] = new Step\Given('I fill in "_password" with "'.$pwd.'"');
+        $steps[] = new Step\Given('I press "_submit"');
+        $steps[] = new Step\Then('I should see "Logged in as"');
+        
+        return $steps;
+    }
 }

@@ -14,6 +14,10 @@ sharimg_content_view:
     pattern:  /content/{content}
     defaults: { _controller: SharimgContentBundle:Default:view }
 
+sharimg_content_moderate:
+    pattern:  /admin/content
+    defaults: { _controller: SharimgContentBundle:Admin:moderate }
+
 sharimg_api_content_add:
     pattern:  /api/add_content.json
     defaults: { _controller: SharimgContentBundle:Api:add }

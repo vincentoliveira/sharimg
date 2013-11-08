@@ -2,6 +2,8 @@
 ---
 
 content.contents: "Contents"
+content.moderate: "Moderate"
+
 
 content.add: "Share content"
 content.select_content: "Select the media you want to share"

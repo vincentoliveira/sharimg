@@ -1,0 +1,7 @@
+sharimg_analytics_index:
+    pattern:  /
+    defaults: { _controller: SharimgAnalyticsBundle:Default:index }
+
+sharimg_analytics_logs:
+    pattern:  /{logfile}
+    defaults: { _controller: SharimgAnalyticsBundle:Default:logs }

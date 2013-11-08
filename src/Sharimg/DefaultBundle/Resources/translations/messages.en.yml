@@ -4,9 +4,13 @@
 sharimg.sharimg: "Sharimg"
 sharimg.copyright: "Copyright Sharimg 2013"
 
-sharimg.menu.add_content: "Share"
-sharimg.menu.random: "Random"
-sharimg.menu.import_content: "Import content"
+sharimg:
+  menu:
+    random: "Random"
+    add_content: "Share"
+    import_content: "Import content"
+    moderate: "Moderate"
+    analytics: "Analytics"
 
 sharimg.login: "Sign in"
 sharimg.logged_in_as: "Logged in as %username%"

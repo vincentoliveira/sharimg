@@ -9,7 +9,17 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * Base Controller
  */
 class BaseController extends Controller
-{    
+{
+    /**
+     * PreExecute is called before any action
+     */
+    public function preExecute()
+    {
+        // log action
+        $loggerService = $this->container->get('sharimg_analytics.logger_service');
+        $loggerService->log();
+    }
+    
     /**
      * Translate $msg
      * @param string $msg

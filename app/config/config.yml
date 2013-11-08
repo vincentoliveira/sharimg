@@ -5,6 +5,7 @@ imports:
 parameters:
     api.default.count: 20
     sharimg.content.pagination: 50
+    moderate.content.pagination: 50
     
     twitter_api_manager.tweet_count: 40
     twitter_api_manager.consumer_key: eObWNf09kTyjRPB450LawQ
