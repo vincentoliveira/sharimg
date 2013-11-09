@@ -26,11 +26,12 @@ class ContentService
      * @param array $params Post parameters
      * @return array errors or true if success
      */
-    public function updateStatus(Array $params)
+    public function moderate(Array $params)
     {
         $errors = array();
         $contentId = $this->getParameter($params, 'content_id');
         $statusId = $this->getParameter($params, 'status_id');
+        $description = $this->getParameter($params, 'description');
         
         $statuses = $this->container->getParameter('content.status');
         if (!isset($statuses[$statusId])) {
@@ -51,6 +52,9 @@ class ContentService
         }
         
         try {
+            if (!empty($description)) {
+                $content->setDescription($description);
+            }
             $content->setStatusId($statusId);
             $this->em->persist($content);
             $this->em->flush();

@@ -34,9 +34,9 @@ sharimg_api_content_list:
     pattern:  /api/content_list.json
     defaults: { _controller: SharimgContentBundle:Api:list }
     
-sharimg_api_content_list:
-    pattern:  /api/update_status.json
-    defaults: { _controller: SharimgContentBundle:Api:updateStatus }
+sharimg_api_moderate_content:
+    pattern:  /api/moderate.json
+    defaults: { _controller: SharimgContentBundle:Api:moderate }
     requirements:
         _method: POST
     options:

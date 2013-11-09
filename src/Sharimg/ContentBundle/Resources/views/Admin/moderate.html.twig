@@ -22,16 +22,17 @@
                 <td><a href="{{ path('sharimg_content_view', {content:content.id}) }}" />{{ content.id }}</a></td>
                 <td>{{ content.media.id }}</td>
                 <td><img src="{{ asset('images/min/' ~ content.media.path) }}" alt="{{ content.media.id }}" class="img-thumbnail" /></td>
-                <td>{{ content.description }}</td>
+                <td><textarea class="form-control form-description">{{ content.description }}</textarea></td>
                 <td>{% if content.contributor is not null %}{{ content.contributor.username }}{% endif %}</td>
                 <td>{{ content.source }}</td>
-                <td class="status">{% if content_status[content.statusId] is defined %}{{ content_status[content.statusId] }}{% endif %}</td>
-                <td>{% spaceless  %}
+                <td class="status">{% spaceless  %}
                     <select class="form-control form-status-id">
                         {% for id, label in content_status %}
                             <option value="{{ id }}" {% if content.statusId == id %}selected{% endif %}>{{ label }}</option>
                         {% endfor %}
                     </select>
+                {% endspaceless %}</td>
+                <td>{% spaceless  %}
                     <button class="btn btn-primary btn-change-status">{{ 'content.moderate.change_status'|trans}}</button>
                     <div class="alert alert-success">
                         <button type="button" class="close" aria-hidden="true">&times;</button>
@@ -54,13 +55,13 @@
             e.preventDefault();
             var parent = $(this).parents('tr');
             var contentId = parent.attr('id').substr(8);
+            var description = parent.find('.form-description').val();
             var statusId = parent.find('.form-status-id').val();
-            var url = Routing.generate('sharimg_api_content_list');
-            var data = 'content_id='+contentId+'&status_id='+statusId;
+            var url = Routing.generate('sharimg_api_moderate_content');
+            var data = 'content_id='+contentId+'&status_id='+statusId+"&description="+description;
             $.post(url, data, function (data) {
                 var alert = parent.find('.alert');
                 if ('update_status' in data && data.update_status) {
-                    parent.find('.status').html(parent.find('select option:selected').text());
                     alert.addClass('alert-success');
                     alert.removeClass('alert-danger');
                     alert.find('span').html("{{ 'content.moderate.status_updated'|trans }}");
@@ -68,7 +69,7 @@
                     alert.removeClass('alert-success');
                     alert.addClass('alert-danger');
                     var errMsg = ('error' in data && 'err_msg' in data) ? data.error.err_msg : "{{ 'content.moderate.status_failed'|trans }}";
-                    alert.find('span').html("{{ 'content.moderate.status_updated'|trans }}");
+                    alert.find('span').html(errMsg);
                 }
                 alert.show();
             });

@@ -85,16 +85,17 @@ class ApiController extends BaseController
     }
     
     /**
+     * Update description of 'content_id' to 'description'
      * Update status of 'content_id' to 'status_id'
      * POST : status_id, content_id
      * 
      * @Secure(roles="ROLE_ADMIN")
      */
-    public function updateStatusAction()
+    public function moderateAction()
     {
         $postParameters = $this->getRequest()->request->all();
         $contentService = $this->container->get('sharimg_content.content_service');
-        $results = $contentService->updateStatus($postParameters);
+        $results = $contentService->moderate($postParameters);
         
         if ($results !== true) {
             if (is_array($results)) {

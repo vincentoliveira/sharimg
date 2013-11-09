@@ -121,52 +121,6 @@ class Content
     {
         return $this->description;
     }
-
-    /**
-     * Set path
-     *
-     * @param string $path
-     * @return Content
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    
-        return $this;
-    }
-
-    /**
-     * Get path
-     *
-     * @return string 
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * Set visible
-     *
-     * @param boolean $visible
-     * @return Content
-     */
-    public function setVisible($visible)
-    {
-        $this->visible = $visible;
-    
-        return $this;
-    }
-
-    /**
-     * Get visible
-     *
-     * @return boolean 
-     */
-    public function getVisible()
-    {
-        return $this->visible;
-    }
     
     /**
      * Set source
