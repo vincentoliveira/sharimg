@@ -18,7 +18,20 @@ class ApiController extends BaseController
      */
     public function loginAction()
     {
-        return new JsonResponse(array('login' => array('success' => false)));
+        $token = $this->container->get('security.context')->getToken();
+        if ($token !== null)
+            return JsonResponse(array('login' => array('success' => false)));
+        
+        $user = $token->getUser();
+        if ($user === null || !$user instanceof \Sharimg\UserBundle\Entity\User)
+            return JsonResponse(array('login' => array('success' => false)));
+        
+        $userData = array(
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+        );
+        
+        return new JsonResponse(array('login' => array('success' => true, 'user' => $userData)));
     }
     
     /**

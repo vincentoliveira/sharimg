@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for content in pagination.contents %}
+            {% for content in contents %}
             <tr id="content-{{ content.id }}">
                 <td><a href="{{ path('sharimg_content_view', {content:content.id}) }}" />{{ content.id }}</a></td>
                 <td>{{ content.media.id }}</td>
@@ -43,6 +43,14 @@
             {% endfor %}
         </tbody>
     </table>
+    
+    <ul class="pagination">
+        <li><a href="#">&laquo;</a></li>
+        {% for i in 1..maxPage %}
+            <li {% if page == i %}class="active"{% endif %}><a href="{{ path('sharimg_content_moderate', {page: i}) }}">{{ i }}</a></li>
+        {% endfor %}
+        <li><a href="#">&raquo;</a></li>
+    </ul>
 </div>
 {% endblock %}
 

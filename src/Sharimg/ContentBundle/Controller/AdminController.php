@@ -4,8 +4,6 @@ namespace Sharimg\ContentBundle\Controller;
 
 use Sharimg\DefaultBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sharimg\ContentBundle\Entity\Content;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 /**
@@ -31,8 +29,10 @@ class AdminController extends BaseController
             $first = $maxResults * ($first - 1);
         }
         
-        $contents = $this->getRepository('SharimgContentBundle:Content')->getAll($first, $maxResults);
+        $data = $this->getRepository('SharimgContentBundle:Content')->getAll($first, $maxResults);
+        $data['maxPage'] = ceil($data['count'] / $maxResults);
+        $data['page'] = $page;
         
-        return array('pagination' => $contents);
+        return $data;
     }
 }

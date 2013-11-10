@@ -5,8 +5,6 @@ sharimg_user_profile:
 sharimg_user_api_login:
     pattern:  /api/login_check.json
     defaults: { _controller: SharimgUserBundle:Api:login }
-    requirements:
-        _method: POST
     
 sharimg_user_api_register:
     pattern:  /api/register.json

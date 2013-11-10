@@ -1,7 +1,14 @@
 parameters:
-    sharimg_user.user_service.class: Sharimg\UserBundle\Service\UserService
 
 services:
     sharimg_user.user_service:
-        class: %sharimg_user.user_service.class%
+        class: Sharimg\UserBundle\Service\UserService
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    wsse.security.authentication.provider:
+        class:  Sharimg\UserBundle\Security\Authentication\Provider\WsseProvider
+        arguments: ["", "%kernel.cache_dir%/security/nonces"]
+
+    wsse.security.authentication.listener:
+        class:  Sharimg\UserBundle\Security\Firewall\WsseListener
+        arguments: ["@security.context", "@security.authentication.manager"]
