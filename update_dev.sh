@@ -18,11 +18,7 @@ sudo -u www-data php app/console doctrine:schema:update --force
 sudo -u www-data php app/console assets:install web --symlink
 sudo -u www-data php app/console fos:js-routing:dump
 
-# Add users
-sudo -u www-data php app/console fos:user:create test test@sharimg.com test123
-sudo -u www-data php app/console fos:user:create admin admin@sharimg.com admin123 --super-admin
-
-echo "Clear images"
+# Clear images
 rm -rf web/logs
 rm -rf web/images
 mkdir web/logs
@@ -36,3 +32,10 @@ php app/console cache:warmup --env=prod --no-debug
 chmod -R 0777 app/cache
 chmod -R 0777 app/logs
 chown -R www-data:www-data *
+
+# Add users
+sudo -u www-data php app/console fos:user:create test test@sharimg.com test123
+sudo -u www-data php app/console fos:user:create admin admin@sharimg.com admin123 --super-admin
+
+# Add content
+sudo -u www-data php app/console sharimg:import:twitter TheWorldStories

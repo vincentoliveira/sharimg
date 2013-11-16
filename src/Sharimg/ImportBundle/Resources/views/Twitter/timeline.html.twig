@@ -15,10 +15,10 @@
             <tbody>
                 {% for tweet in timeline %}
                     <tr>
-                        <td>{{ tweet.text }}<input id="author-{{ loop.index }}" type="hidden" value="{{ tweet.author }}" /></td>
-                        <td><input id="description-{{ loop.index }}" type="text" class="form-control tweet-description-input" value="{{ tweet.title }}" /></td>
-                        <td>{% if tweet.image is not empty %}<a href="{{ tweet.image }}" target="_blank"><img id="img-{{ loop.index }}" width="200" src="{{ tweet.image }}" alt="{{ tweet.image }}" /></a>{% else %}-{% endif %}</td>
-                        <td>{% if tweet.image is not empty %}<button class="btn btn-primary btn-import" id="btn-{{ loop.index }}">Import</button>{% else %}-{% endif %}</td>
+                        <td>{{ tweet.text }}<input id="author-{{ loop.index }}" type="hidden" value="{{ tweet.source }}" /></td>
+                        <td><input id="description-{{ loop.index }}" type="text" class="form-control tweet-description-input" value="{{ tweet.description }}" /></td>
+                        <td>{% if tweet.media_url is not empty %}<a href="{{ tweet.media_url }}" target="_blank"><img id="img-{{ loop.index }}" width="200" src="{{ tweet.media_url }}" alt="{{ tweet.media_url }}" /></a>{% else %}-{% endif %}</td>
+                        <td>{% if tweet.media_url is not empty %}<button class="btn btn-primary btn-import" id="btn-{{ loop.index }}">Import</button>{% else %}-{% endif %}</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -41,7 +41,7 @@
                 var media_url = $('#img-'+id).attr("src");
                 var author = $('#author-'+id).val();
                 var source = '@'+author+' (Twitter)';
-                var visible = '1';
+                var visible = '0';
                 var data = 'description='+description+"&media_url="+media_url+"&source="+source+"&visible="+visible;
             
                 var url = Routing.generate('sharimg_api_content_add');
