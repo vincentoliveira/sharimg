@@ -8,6 +8,7 @@ sharimg:
   menu:
     random: "Random"
     add_content: "Share"
+    favorites: "Favorites"
     import_content: "Import content"
     moderate: "Moderate"
     analytics: "Analytics"

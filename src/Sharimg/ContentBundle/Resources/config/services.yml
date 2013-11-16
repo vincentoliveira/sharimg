@@ -19,3 +19,8 @@ services:
     sharimg_content.media_handler:
         class: %sharimg_content.media_handler.class%
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+        
+    sharimg_content.favorite_service:
+        class: Sharimg\ContentBundle\Service\FavoriteService
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+

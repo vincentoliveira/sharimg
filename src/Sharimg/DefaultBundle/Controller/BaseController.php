@@ -21,6 +21,22 @@ class BaseController extends Controller
     }
     
     /**
+     * Get current user
+     * @return Sharimg\UserBundle\User
+     */
+    public function getCurrentUser()
+    {
+        $token = $this->container->get('security.context')->getToken();
+        $user = $token !== null ? $token->getUser() : null;
+        if ($user instanceof \Sharimg\UserBundle\Entity\User) {
+            return $user;
+        }
+        
+        return null;
+    }
+    
+    
+    /**
      * Translate $msg
      * @param string $msg
      * @param array $params

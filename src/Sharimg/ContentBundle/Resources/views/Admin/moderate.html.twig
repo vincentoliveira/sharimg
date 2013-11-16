@@ -19,7 +19,7 @@
         <tbody>
             {% for content in contents %}
             <tr id="content-{{ content.id }}">
-                <td><a href="{{ path('sharimg_content_view', {content:content.id}) }}" />{{ content.id }}</a></td>
+                <td><a href="{{ path('sharimg_content_show', {content:content.id}) }}" />{{ content.id }}</a></td>
                 <td>{{ content.media.id }}</td>
                 <td><img src="{{ asset('images/min/' ~ content.media.path) }}" alt="{{ content.media.id }}" class="img-thumbnail" /></td>
                 <td><textarea class="form-control form-description">{{ content.description }}</textarea></td>

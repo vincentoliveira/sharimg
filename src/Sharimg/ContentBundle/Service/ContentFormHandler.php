@@ -63,7 +63,7 @@ class ContentFormHandler
             
             // status
             $statused = $this->container->getParameter('content.status_id');
-            $content->setStatusId($this->getPostParams($params,'statusId', $statused['default']));
+            $content->setStatusId($this->getPostParams($params, 'status_id', $statused['default']));
 
             // contributor
             $token = $this->container->get('security.context')->getToken();
@@ -100,8 +100,10 @@ class ContentFormHandler
             return $content->getId();
         }
         catch (\Exception $e) {
-            throw $e;
-            return false;            
+            if ($this->container->getParameter('kernel.environment') === 'dev') {
+                throw $e;
+            }
+            return false;
         }
     }
     

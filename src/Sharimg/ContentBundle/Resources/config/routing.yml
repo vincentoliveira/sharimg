@@ -10,9 +10,13 @@ sharimg_content_random:
     pattern:  /content/random
     defaults: { _controller: SharimgContentBundle:Default:random }
     
-sharimg_content_view:
-    pattern:  /content/{content}
-    defaults: { _controller: SharimgContentBundle:Default:view }
+sharimg_content_show:
+    pattern:  /show/{content}
+    defaults: { _controller: SharimgContentBundle:Default:show }
+    
+sharimg_content_favorite:
+    pattern:  /favorites
+    defaults: { _controller: SharimgContentBundle:Favorite:list }
 
 sharimg_content_moderate:
     pattern:  /admin/content

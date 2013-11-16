@@ -36,7 +36,7 @@ class DefaultController extends BaseController
      * @param Content $content
      * @return Response
      */
-    public function viewAction(Content $content)
+    public function showAction(Content $content)
     {
         return array('content' => $content);
     }
@@ -76,7 +76,7 @@ class DefaultController extends BaseController
             if ($isValid === true) {
                 $contentId = $formHandler->hydrateEntity($params);
                 if ($contentId !== false) {
-                    return $this->redirectToRoute('sharimg_content_view', array('content' => $contentId));
+                    return $this->redirectToRoute('sharimg_content_show', array('content' => $contentId));
                 }
                 $errors['globals'][] = 'content.error.internal_error';
             } else {
