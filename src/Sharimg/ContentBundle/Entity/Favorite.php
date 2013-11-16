@@ -3,13 +3,12 @@
 namespace Sharimg\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sharimg\ContentBundle\Entity\Media;
 
 /**
  * Content
  *
  * @ORM\Table(name="favorite")
- * @ORM\Entity(repositoryClass="Sharimg\ContentBundle\Repository\ContentRepository")
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Favorite
@@ -22,6 +21,12 @@ class Favorite
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="favorized", type="boolean")
+     */
+    private $favorized;
 
     /**
      * @var \DateTime
@@ -125,5 +130,36 @@ class Favorite
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set favorized
+     *
+     * @param boolean $favorized
+     * @return Favorite
+     */
+    public function setFavorized($favorized)
+    {
+        $this->favorized = $favorized;
+    
+        return $this;
+    }
+
+    /**
+     * Get favorized
+     *
+     * @return boolean 
+     */
+    public function getFavorized()
+    {
+        return $this->favorized;
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+        $this->date = new \DateTime();
     }
 }

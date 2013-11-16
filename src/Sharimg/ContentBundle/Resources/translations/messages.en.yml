@@ -17,6 +17,17 @@ content:
   is_visible: "Publish ?"
   submit: "Share content"
   favorites: "Favorites"
+  
+  show:
+    from: "From:"
+    source: "Source:"
+    anonymous: "Anonymous"
+    favorize: "Favorize"
+    unfavorize: "Unfavorize"
+    favorize_success: "You have favorized this content"
+    favorize_error: "An error has occured"
+    unfavorize_success: "You have unfavorized this content"
+    unfavorize_error: "An error has occured"
 
   error:
     empty_file_input: "<em>File input</em> field xor <em>Media url</em> field must be filled in"
@@ -25,7 +36,6 @@ content:
     description_must_be_filled: "<em>Description</em> field must be filled in"
     internal_error: "An unexpected error has occured. Please try again later."
 
-content:
   moderate:
     content_id: "#"
     media_id: "Media ID"

@@ -17,6 +17,14 @@ sharimg_content_show:
 sharimg_content_favorite:
     pattern:  /favorites
     defaults: { _controller: SharimgContentBundle:Favorite:list }
+    
+sharimg_content_favorize_ws:
+    pattern:  /ws/favorize.json
+    defaults: { _controller: SharimgContentBundle:Favorite:favorizeWS }
+    requirements:
+        _method: POST
+    options:
+        expose: true
 
 sharimg_content_moderate:
     pattern:  /admin/content
@@ -45,3 +53,13 @@ sharimg_api_moderate_content:
         _method: POST
     options:
         expose: true
+    
+sharimg_api_content_favorites:
+    pattern:  /api/favorites.json
+    defaults: { _controller: SharimgContentBundle:FavoriteApi:list }
+    
+sharimg_api_content_favorize:
+    pattern:  /api/favorize.json
+    defaults: { _controller: SharimgContentBundle:FavoriteApi:favorize }
+    requirements:
+        _method: POST

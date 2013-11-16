@@ -52,7 +52,7 @@ class TwitterApiManager
         foreach ($timelineArray as $tweet) {
             $tweetData = array();
             $tweetData['text'] = $tweet->text;
-            $tweetData['source'] = $tweet->user->screen_name;
+            $tweetData['source'] = '@'.$tweet->user->screen_name.' (Twitter)';
             $tweetData['description'] = $this->getTitleFromTweet($tweet->text);
             
             $media = isset($tweet->entities->media) ? $tweet->entities->media : null;
@@ -99,7 +99,7 @@ class TwitterApiManager
         foreach ($timelineArray as $tweet) {
             $tweetData = array();
             $tweetData['text'] = $tweet->text;
-            $tweetData['source'] = $tweet->user->screen_name;
+            $tweetData['source'] = '@'.$tweet->user->screen_name.' (Twitter)';
             $tweetData['description'] = $this->getTitleFromTweet($tweet->text);
             
             $media = isset($tweet->entities->media) ? $tweet->entities->media : null;

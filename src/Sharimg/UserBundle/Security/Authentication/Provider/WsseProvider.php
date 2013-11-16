@@ -55,7 +55,7 @@ class WsseProvider implements AuthenticationProviderInterface
             mkdir($this->cacheDir, 0777, true);
         }
         file_put_contents($this->cacheDir.'/'.$nonce, time());
-
+        
         // Validate Secret
         $expected = base64_encode(sha1(base64_decode($nonce).$created.$secret, true));
 

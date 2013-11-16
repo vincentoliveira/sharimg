@@ -4,6 +4,7 @@ namespace Sharimg\DefaultBundle\Controller;
 
 use Sharimg\DefaultBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Base API Controller
@@ -25,6 +26,24 @@ class ApiController extends BaseController
         self::ERROR_EMAIL_FORMAT => 'invalid_email_format',
         self::ERROR_INTERNAL => 'error.internal',
     );
+    
+    /*
+     * Authentificate user and check roles
+     * @param string $roles
+     * @return Sharimg\UserBundle\User User
+     */
+    public function authentificate($roles = null)
+    {
+        $user = $this->getCurrentUser();
+        if ($user == null) {
+            throw new HttpException(403, 'Unauthorized access');
+        }
+        if ($roles !== null && !$user->hasRole($roles)) {
+            throw new HttpException(403, 'Unauthorized access');            
+        }
+        
+        return $user;
+    }
     
     /**
      * Return error array (err_no, err_msg)

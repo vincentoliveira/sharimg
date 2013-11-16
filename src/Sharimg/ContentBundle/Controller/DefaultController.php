@@ -38,7 +38,22 @@ class DefaultController extends BaseController
      */
     public function showAction(Content $content)
     {
-        return array('content' => $content);
+        $favorized = false;
+        
+        $currentUser = $this->getCurrentUser();
+        if ($currentUser !== null) {
+            $favorite = $this->getRepository('SharimgContentBundle:Favorite')->findOneBy(array(
+                'user' => $currentUser,
+                'content' => $content,
+            ));
+            
+            $favorized = $favorite != null && $favorite->getFavorized();
+        }
+        
+        return array(
+            'content' => $content,
+            'favorized' => $favorized,
+        );
     }
     
     /**
@@ -50,7 +65,7 @@ class DefaultController extends BaseController
     public function randomAction()
     {
         $content = $this->getRepository('SharimgContentBundle:Content')->getRandom();
-        return array('content' => $content);
+        return $this->redirectToRoute('sharimg_content_show', array('content' => $content->getId()));
     }
     
     
