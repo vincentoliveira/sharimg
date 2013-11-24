@@ -1,0 +1,82 @@
+{% extends "SharimgDefaultBundle::layout.html.twig" %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ 'analitycs.title'|trans }}: <a href="{{ asset(webDirectory ~ logfile) }}">{{ logfile }}</a></h1>
+
+    <h2>{{ 'analitycs.global_data'|trans  }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'analitycs.data'|trans }}</th>
+                <th>{{ 'analitycs.value'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ 'analitycs.unique_visitors'|trans }}</td>
+                <td>{{ uniqueVisitors }}</td>
+            </tr>
+            <tr>
+                <td>{{ 'analitycs.average_seen_pages'|trans }}</td>
+                <td>{{ averagePages }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>{{ 'analitycs.connections_per_hour'|trans  }}</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for i in 0..23 %}
+                    <th>{{ i }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in 0..23 %}
+                    <td>{{ connections[i]|default(0) }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>{{ 'analitycs.pages'|trans }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'analitycs.url'|trans }}</th>
+                <th>{{ 'analitycs.nb_visits'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for page, nbVisits in pages %}
+                <tr>
+                    <td>{{ page }}</td>
+                    <td>{{ nbVisits }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <h2>{{ 'analitycs.visitors'|trans }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'analitycs.ip'|trans }}</th>
+                <th>{{ 'analitycs.nb_visits'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for visitor, nbVisits in visitors %}
+                <tr>
+                    <td>{{ visitor }}</td>
+                    <td>{{ nbVisits }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -5,6 +5,21 @@ imports:
 parameters:
     api.default.count: 20
     sharimg.content.pagination: 50
+    sharimg.comment.pagination: 20
+    moderate.content.pagination: 50
+    
+    content.status:
+      0: Initialized
+      1: Rejected
+      2: Invisible
+      3: Visible
+      
+    content.status_id:
+      default: 0
+      initialized : 0
+      rejected: 1
+      invisible: 2
+      visible: 3
     
     twitter_api_manager.tweet_count: 40
     twitter_api_manager.consumer_key: eObWNf09kTyjRPB450LawQ
@@ -35,6 +50,11 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    form:
+        resources:
+            - 'form_div_layout.html.twig'
+    globals:
+      content_status: %content.status%
 
 # Assetic Configuration
 assetic:
@@ -79,4 +99,4 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: Sharimg\DefaultBundle\Entity\User
+    user_class: Sharimg\UserBundle\Entity\User

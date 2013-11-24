@@ -1,0 +1,96 @@
+{% extends "SharimgDefaultBundle::layout.html.twig" %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ 'content.moderate'|trans }}</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{ 'content.moderate.content_id'|trans }}</th>
+                <th>{{ 'content.moderate.media_id'|trans }}</th>
+                <th>{{ 'content.moderate.media'|trans }}</th>
+                <th>{{ 'content.moderate.description'|trans }}</th>
+                <th>{{ 'content.moderate.contributor'|trans }}</th>
+                <th>{{ 'content.moderate.source'|trans }}</th>
+                <th>{{ 'content.moderate.status'|trans }}</th>
+                <th>{{ 'content.moderate.actions'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for content in contents %}
+            <tr id="content-{{ content.id }}">
+                <td><a href="{{ path('sharimg_content_show', {content:content.id}) }}" />{{ content.id }}</a></td>
+                <td>{{ content.media.id }}</td>
+                <td><img src="{{ asset('images/min/' ~ content.media.path) }}" alt="{{ content.media.id }}" class="img-thumbnail" /></td>
+                <td><textarea class="form-control form-description">{{ content.description }}</textarea></td>
+                <td>{% if content.contributor is not null %}{{ content.contributor.username }}{% endif %}</td>
+                <td>{{ content.source }}</td>
+                <td class="status">{% spaceless  %}
+                    <select class="form-control form-status-id">
+                        {% for id, label in content_status %}
+                            <option value="{{ id }}" {% if content.statusId == id %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                {% endspaceless %}</td>
+                <td>{% spaceless  %}
+                    <button class="btn btn-primary btn-change-status">{{ 'content.moderate.change_status'|trans}}</button>
+                    <div class="alert alert-success">
+                        <button type="button" class="close" aria-hidden="true">&times;</button>
+                        <span></span>
+                    </div>
+                {% endspaceless %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <ul class="pagination">
+        <li><a href="#">&laquo;</a></li>
+        {% for i in 1..maxPage %}
+            <li {% if page == i %}class="active"{% endif %}><a href="{{ path('sharimg_content_moderate', {page: i}) }}">{{ i }}</a></li>
+        {% endfor %}
+        <li><a href="#">&raquo;</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{% spaceless %}
+{{ parent() }}
+<script>
+    $(document).ready(function(){
+        $('.btn-change-status').click(function(e) {
+            e.preventDefault();
+            var parent = $(this).parents('tr');
+            var contentId = parent.attr('id').substr(8);
+            var description = parent.find('.form-description').val();
+            var statusId = parent.find('.form-status-id').val();
+            var url = Routing.generate('sharimg_api_moderate_content');
+            var data = 'content_id='+contentId+'&status_id='+statusId+"&description="+description;
+            $.post(url, data, function (data) {
+                var alert = parent.find('.alert');
+                if ('update_status' in data && data.update_status) {
+                    alert.addClass('alert-success');
+                    alert.removeClass('alert-danger');
+                    alert.find('span').html("{{ 'content.moderate.status_updated'|trans }}");
+                } else {
+                    alert.removeClass('alert-success');
+                    alert.addClass('alert-danger');
+                    var errMsg = ('error' in data && 'err_msg' in data) ? data.error.err_msg : "{{ 'content.moderate.status_failed'|trans }}";
+                    alert.find('span').html(errMsg);
+                }
+                alert.show();
+            });
+        });
+        
+        $('.close').click(function(e){
+            e.preventDefault();
+            var parent = $(this).parents('.alert');
+            parent.hide();
+        });
+        
+        $('.alert').hide();
+    });
+</script>
+{% endspaceless %}
+{% endblock %}

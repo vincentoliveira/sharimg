@@ -1,0 +1,21 @@
+## YAML Template.
+---
+
+analitycs.title: "Analytics"
+analitycs.search: "Search"
+analitycs.from: "From:"
+analitycs.to: "To:"
+analitycs.submit: "Search"
+analitycs.download: "Download"
+
+analitycs.global_data: "Global data"
+analitycs.data: "Data"
+analitycs.value: "Value"
+analitycs.unique_visitors: "Unique visitors"
+analitycs.average_seen_pages: "Average seen pages"
+analitycs.connections_per_hour: "Connections per hour"
+analitycs.pages: "Page"
+analitycs.url: "URL"
+analitycs.nb_visits: "Nb visits"
+analitycs.visitors: "Visitor"
+analitycs.ip: "IP"

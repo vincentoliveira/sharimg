@@ -1,0 +1,13 @@
+parameters:
+    sharimg_analytics.logger_service.class: Sharimg\AnalyticsBundle\Service\LoggerService
+    sharimg_analytics.analytics_service.class: Sharimg\AnalyticsBundle\Service\AnalyticsService
+    analytics.log_directory: logs/
+
+services:
+    sharimg_analytics.logger_service:
+        class: %sharimg_analytics.logger_service.class%
+        arguments: [@service_container]
+    sharimg_analytics.analytics_service:
+        class: %sharimg_analytics.analytics_service.class%
+        arguments: [@service_container]
+        

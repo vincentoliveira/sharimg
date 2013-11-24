@@ -25,9 +25,22 @@
                 <li class="{% if currentPath == path('sharimg_content_add') %}active{% endif %}">
                     <a href="{{ path('sharimg_content_add') }}">{{ 'sharimg.menu.add_content'|trans }}</a>
                 </li>
+                {% if is_granted("ROLE_USER") %}
+                <li class="{% if currentPath == path('sharimg_content_favorite') %}active{% endif %}">
+                    <a href="{{ path('sharimg_content_favorite') }}">{{ 'sharimg.menu.favorites'|trans }}</a>
+                </li>
                 <li class="{% if currentPath == path('sharimg_import_homepage') %}active{% endif %}">
                     <a href="{{ path('sharimg_import_homepage') }}">{{ 'sharimg.menu.import_content'|trans }}</a>
                 </li>
+                {% endif %}
+                {% if is_granted("ROLE_ADMIN") %}
+                <li class="{% if currentPath == path('sharimg_content_moderate') %}active{% endif %}">
+                    <a href="{{ path('sharimg_content_moderate') }}">{{ 'sharimg.menu.moderate'|trans }}</a>
+                </li>
+                <li class="{% if currentPath == path('sharimg_analytics_index') %}active{% endif %}">
+                    <a href="{{ path('sharimg_analytics_index') }}">{{ 'sharimg.menu.analytics'|trans }}</a>
+                </li>
+                {% endif %}
             </ul>
                 
             <ul class="nav navbar-nav navbar-right">
@@ -35,10 +48,8 @@
                     <li><a href="{{ path('sharimg_user_profile') }}">{{ 'sharimg.logged_in_as'|trans({'%username%': app.user.username}) }}</a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">{{ 'sharimg.logout'|trans({}) }}</a></li>
                 {% else %}
-                    {#
                     <li><a href="{{ path('fos_user_security_login') }}">{{ 'sharimg.login'|trans }}</a></li>
                     <li><a href="{{ path('fos_user_registration_register') }}">{{ 'sharimg.sign_up'|trans }}</a></li>
-                    #}
                 {% endif %}
             </ul>
         </div>

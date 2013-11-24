@@ -1,0 +1,120 @@
+{% extends "SharimgDefaultBundle::layout.html.twig" %}
+
+{% block content %}
+<div class="container">
+    
+    <div class="alert alert-favorize">
+        <button type="button" class="close" aria-hidden="true">&times;</button>
+        <span></span>
+    </div>
+    {% if app.request.query.get('post_comments') is not null %}
+        <div class="alert {% if app.request.query.get('post_comments') %}alert-success{% else %}alert-danger{% endif %}">
+            <button type="button" class="close" aria-hidden="true">&times;</button>
+            {% if app.request.query.get('post_comments') %}
+                <span>{{ 'content.comment_success'|trans }}</span>
+            {% else %}
+                <span>{{ 'content.comment_fail'|trans }}</span>
+            {% endif %}
+        </div>
+    {% endif %}
+    <h1>
+        {{ content.description }}
+    </h1>
+    <div>
+        {% if is_granted("ROLE_USER") %}
+        <a href="#" class="unfavorize" {% if favorized == false %}style="display:none;"{% endif %} title="{{ 'content.show.unfavorize'|trans }}"><span class="glyphicon glyphicon-heart"></span></a>
+        <a href="#" class="favorize" {% if favorized == true %}style="display:none;"{% endif %}title="{{ 'content.show.favorize'|trans }}"><span class="glyphicon glyphicon-heart-empty"></span></a>
+        {% endif %}
+        {{ 'content.show.people_like_this'|trans({'%favorite_count%':content.favoriteCount}) }}
+    </div>
+    <img src="{{ asset('images/' ~ content.media.path) }}" alt=".">
+    <blockquote>{% spaceless %}
+        {{ 'content.show.from'|trans }} {% if content.contributor is not empty  %}{{ content.contributor.username }}{% else %}{{ 'content.show.anonymous'|trans }}{% endif%}
+        {% if content.source is not empty %}- {{ 'content.show.source'|trans }} {{ content.source }}{% endif%}
+    {% endspaceless %}</blockquote>
+    
+    <h3>{{ 'content.comments'|trans }}</h3>
+    <div id="comment-form">
+        <form method="POST" action="{{ path('sharimg_content_post_comments', {content: content.id}) }}">
+            <div class="form-group">
+                <label for="comment">{{ 'content.add_comment'|trans }}</label>
+                <textarea class="form-control" rows="3" name="comment"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success" type="submit" id="_submit" name="_submit" {% if not is_granted("ROLE_USER") %}disabled="true"{% endif %}>{{ 'content.submit_comment'|trans }}</button>
+                {% if not is_granted("ROLE_USER") %}<span class="info">{{ 'content.warning_signin_to_comment'|trans }}</span>{% endif %}
+            </div>
+        </form>
+    </div>
+    <div id="comments"></div>
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% spaceless %}
+    <script>
+        $(document).ready(function(){
+            $('.alert-favorize').hide();
+            $('.close').click(function(e){
+                e.preventDefault();
+                var parent = $(this).parents('.alert');
+                parent.hide();
+            });
+
+            $('.favorize').click(function(e){
+                e.preventDefault();
+
+                var data = 'content_id={{content.id}}&favorized=1';
+                var url = Routing.generate('sharimg_content_favorize_ws');
+                $.post(url, data, function (data) {
+                    if (data.favorize) {
+                        $('.favorize').hide();
+                        $('.unfavorize').show();
+                        $('.alert-favorize').addClass('alert-success');
+                        $('.alert-favorize span').html("{{ 'content.show.favorize_success'|trans }}");
+                    } else {
+                        $('.alert-favorize').addClass('alert-danger');
+                        $('.alert-favorize span').html("{{ 'content.show.favorize_error'|trans }}");
+                    }
+                    $('.alert-favorize').show();
+                });
+            });
+            $('.unfavorize').click(function(e){
+                e.preventDefault();
+
+                var data = 'content_id={{content.id}}&favorized=0';
+                var url = Routing.generate('sharimg_content_favorize_ws');
+                $.post(url, data, function (data) {
+                    if (data.favorize) {
+                        $('.favorize').show();
+                        $('.unfavorize').hide();
+                        $('.alert-favorize').removeClass('alert-danger').addClass('alert-success');
+                        $('.alert-favorize span').html("{{ 'content.show.unfavorize_success'|trans }}");
+                    } else {
+                        $('.alert-favorize').removeClass('alert-success').addClass('alert-danger');
+                        $('.alert-favorize span').html("{{ 'content.show.unfavorize_error'|trans }}");
+                    }
+                    $('.alert-favorize').show();
+                });
+            });
+
+            var commentPage = 1;
+            function loadComment()
+            {
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('sharimg_content_comment_raw', {content:{{content.id}}}),
+                    data: '',
+                    success: function(data) {
+                        commentPage = commentPage + 1;
+                        $('#comments').append(data);
+                    },
+                });
+            }
+            loadComment();
+        });
+    </script>
+{% endspaceless %}
+{% endblock %}

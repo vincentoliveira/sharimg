@@ -96,8 +96,21 @@ class Media
     /**
      * @ORM\PrePersist()
      */
-    public function preersist()
+    public function prePersist()
     {
         $this->uploadDate = new \DateTime();
+    }
+
+    /**
+     * Set uploadDate
+     *
+     * @param \DateTime $uploadDate
+     * @return Media
+     */
+    public function setUploadDate($uploadDate)
+    {
+        $this->uploadDate = $uploadDate;
+    
+        return $this;
     }
 }

@@ -57,10 +57,21 @@ class ContentFormHandler
         try {
             $content = new Content();
 
+            // description and source
             $content->setDescription($this->getPostParams($params, 'description'));
             $content->setSource($this->getPostParams($params, 'source'));
-            $content->setVisible(isset($params['is_visible']));
+            
+            // status
+            $statused = $this->container->getParameter('content.status_id');
+            $content->setStatusId($this->getPostParams($params, 'status_id', $statused['default']));
 
+            // contributor
+            $token = $this->container->get('security.context')->getToken();
+            $contributor = $token !== null ? $token->getUser() : null;
+            if ($contributor instanceof \Sharimg\UserBundle\Entity\User) {
+                $content->setContributor($contributor);
+            }
+                    
             // set date
             try {
                 $date = new \DateTime($this->getPostParams($params, 'date'));
@@ -89,10 +100,13 @@ class ContentFormHandler
             return $content->getId();
         }
         catch (\Exception $e) {
-            throw $e;
-            return false;            
+            if ($this->container->getParameter('kernel.environment') === 'dev') {
+                throw $e;
+            }
+            return false;
         }
     }
+    
     
     /**
      * Get POST parameter or default value
@@ -100,8 +114,8 @@ class ContentFormHandler
      * @param type $name
      * @return string
      */
-    protected function getPostParams($params, $name)
+    protected function getPostParams($params, $name, $default = '')
     {
-        return isset($params[$name]) ? $params[$name] : '';
+        return isset($params[$name]) ? $params[$name] : $default;
     }
 }

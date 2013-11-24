@@ -1,0 +1,9 @@
+{% for comment in comments %}
+    <div class="row">
+        <blockquote>
+            <strong>{{ comment.user.username }}</strong>
+            <em>{{ comment.date|date('m-d-Y') }}</em>
+            <p>{{ comment.text }}</p>
+        </blockquote>
+    </div>
+{% endfor %}

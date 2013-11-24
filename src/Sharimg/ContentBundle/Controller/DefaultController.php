@@ -19,7 +19,7 @@ class DefaultController extends BaseController
      * @return Response
      */
     public function indexAction()
-    {
+    {        
         $params = array(
             'count' => $this->container->getParameter('sharimg.content.pagination'),
         );
@@ -36,9 +36,24 @@ class DefaultController extends BaseController
      * @param Content $content
      * @return Response
      */
-    public function viewAction(Content $content)
+    public function showAction(Content $content)
     {
-        return array('content' => $content);
+        $favorized = false;
+        
+        $currentUser = $this->getCurrentUser();
+        if ($currentUser !== null) {
+            $favorite = $this->getRepository('SharimgContentBundle:Favorite')->findOneBy(array(
+                'user' => $currentUser,
+                'content' => $content,
+            ));
+            
+            $favorized = $favorite != null && $favorite->getFavorized();
+        }
+        
+        return array(
+            'content' => $content,
+            'favorized' => $favorized,
+        );
     }
     
     /**
@@ -50,7 +65,7 @@ class DefaultController extends BaseController
     public function randomAction()
     {
         $content = $this->getRepository('SharimgContentBundle:Content')->getRandom();
-        return array('content' => $content);
+        return $this->redirectToRoute('sharimg_content_show', array('content' => $content->getId()));
     }
     
     
@@ -76,7 +91,7 @@ class DefaultController extends BaseController
             if ($isValid === true) {
                 $contentId = $formHandler->hydrateEntity($params);
                 if ($contentId !== false) {
-                    return $this->redirectToRoute('sharimg_content_view', array('content' => $contentId));
+                    return $this->redirectToRoute('sharimg_content_show', array('content' => $contentId));
                 }
                 $errors['globals'][] = 'content.error.internal_error';
             } else {

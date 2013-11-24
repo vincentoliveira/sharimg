@@ -31,7 +31,7 @@
         
     {% if is_granted("ROLE_ADMIN") %}
         {{ forms.render_form('source', 'content.source'|trans, 'test', input_data.source|default(), errors.source|default()) }}
-        {{ forms.render_form('date', 'content.date'|trans, 'date', input_data.date|default(), errors.date|default()) }}=
+        {{ forms.render_form('date', 'content.date'|trans, 'date', input_data.date|default(), errors.date|default()) }}
         <div class="checkbox">
             <label>
                 <input type="checkbox"  name="is_visible" {% if input_data.is_visible is defined and input_data.is_visible %}checked{% endif %} > {{ 'content.is_visible'|trans }}

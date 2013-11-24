@@ -44,18 +44,22 @@ class TwitterApiManager
         $parameters['contributor_details'] = false;
         $timelineArray = $connection->get($apiUrl, $parameters);
         
+        if ($timelineArray === null || !is_array($timelineArray)) {
+            return array();
+        }
+        
         $timeline = array();
         foreach ($timelineArray as $tweet) {
             $tweetData = array();
             $tweetData['text'] = $tweet->text;
-            $tweetData['author'] = $tweet->user->screen_name;
-            $tweetData['title'] = $this->getTitleFromTweet($tweet->text);
+            $tweetData['source'] = '@'.$tweet->user->screen_name.' (Twitter)';
+            $tweetData['description'] = $this->getTitleFromTweet($tweet->text);
             
             $media = isset($tweet->entities->media) ? $tweet->entities->media : null;
             if (!empty($media)) {
-                $tweetData['image'] = $media[0]->media_url;
+                $tweetData['media_url'] = $media[0]->media_url;
             } else {
-                $tweetData['image'] = null;                
+                $tweetData['media_url'] = null;                
             }
             
             $timeline[] = $tweetData;
@@ -87,18 +91,22 @@ class TwitterApiManager
         $parameters['contributor_details'] = false;
         $timelineArray = $connection->get($apiUrl, $parameters);
         
+        if ($timelineArray === null || !is_array($timelineArray)) {
+            return array();
+        }
+        
         $timeline = array();
         foreach ($timelineArray as $tweet) {
             $tweetData = array();
             $tweetData['text'] = $tweet->text;
-            $tweetData['author'] = $tweet->user->screen_name;
-            $tweetData['title'] = $this->getTitleFromTweet($tweet->text);
+            $tweetData['source'] = '@'.$tweet->user->screen_name.' (Twitter)';
+            $tweetData['description'] = $this->getTitleFromTweet($tweet->text);
             
             $media = isset($tweet->entities->media) ? $tweet->entities->media : null;
             if (!empty($media)) {
-                $tweetData['image'] = $media[0]->media_url;
+                $tweetData['media_url'] = $media[0]->media_url;
             } else {
-                $tweetData['image'] = null;
+                $tweetData['media_url'] = null;
             }
             
             $timeline[] = $tweetData;

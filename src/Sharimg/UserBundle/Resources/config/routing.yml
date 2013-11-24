@@ -1,7 +1,13 @@
-sharimg_user_homepage:
-    pattern:  /hello
-    defaults: { _controller: SharimgUserBundle:Default:index }
-
 sharimg_user_profile:
     pattern:  /profile
     defaults: { _controller: SharimgUserBundle:Default:profile }
+    
+sharimg_user_api_login:
+    pattern:  /api/login_check.json
+    defaults: { _controller: SharimgUserBundle:Api:login }
+    
+sharimg_user_api_register:
+    pattern:  /api/register.json
+    defaults: { _controller: SharimgUserBundle:Api:register }
+    requirements:
+        _method: POST

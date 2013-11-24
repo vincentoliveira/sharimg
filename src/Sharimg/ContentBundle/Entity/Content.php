@@ -48,15 +48,31 @@ class Content
     /**
      * @var string
      *
+     * @ORM\ManyToOne(targetEntity="Sharimg\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="contributor_id", referencedColumnName="id")
+     */
+    private $contributor;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="source", type="string", length=31, nullable=true)
      */
     private $source;
+    
     /**
      * @var boolean
      *
-     * @ORM\Column(name="visible", type="boolean")
+     * @ORM\Column(name="status_id", type="integer", length=2)
      */
-    private $visible;
+    private $statusId;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="favorite_count", type="integer", nullable=true)
+     */
+    private $favoriteCount;
 
     /**
      * Get id
@@ -113,52 +129,6 @@ class Content
     {
         return $this->description;
     }
-
-    /**
-     * Set path
-     *
-     * @param string $path
-     * @return Content
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    
-        return $this;
-    }
-
-    /**
-     * Get path
-     *
-     * @return string 
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * Set visible
-     *
-     * @param boolean $visible
-     * @return Content
-     */
-    public function setVisible($visible)
-    {
-        $this->visible = $visible;
-    
-        return $this;
-    }
-
-    /**
-     * Get visible
-     *
-     * @return boolean 
-     */
-    public function getVisible()
-    {
-        return $this->visible;
-    }
     
     /**
      * Set source
@@ -204,5 +174,74 @@ class Content
     public function getMedia()
     {
         return $this->media;
+    }
+
+    /**
+     * Set statusId
+     *
+     * @param boolean $statusId
+     * @return Content
+     */
+    public function setStatusId($statusId)
+    {
+        $this->statusId = $statusId;
+    
+        return $this;
+    }
+
+    /**
+     * Get statusId
+     *
+     * @return boolean 
+     */
+    public function getStatusId()
+    {
+        return $this->statusId;
+    }
+
+    /**
+     * Set contributor
+     *
+     * @param \Sharimg\UserBundle\Entity\User $contributor
+     * @return Content
+     */
+    public function setContributor(\Sharimg\UserBundle\Entity\User $contributor = null)
+    {
+        $this->contributor = $contributor;
+    
+        return $this;
+    }
+
+    /**
+     * Get contributor
+     *
+     * @return \Sharimg\UserBundle\Entity\User 
+     */
+    public function getContributor()
+    {
+        return $this->contributor;
+    }
+
+    /**
+     * Set favoriteCount
+     *
+     * @param integer $favoriteCount
+     * @return Content
+     */
+    public function setFavoriteCount($favoriteCount)
+    {
+        $this->favoriteCount = $favoriteCount;
+    
+        return $this;
+    }
+
+    /**
+     * Get favoriteCount
+     *
+     * @return integer 
+     */
+    public function getFavoriteCount()
+    {
+        return $this->favoriteCount;
     }
 }

@@ -11,7 +11,7 @@
             {% endif %}
 
                 <div class="post col-sm-6 col-md-3">
-                    <a href="{{ path('sharimg_content_view', {content: content.id}) }}">
+                    <a href="{{ path('sharimg_content_show', {content: content.id}) }}">
                         <div class="media-thumbnail" style="background: url({{ asset('images/min/' ~ content.media.path) }}) 50% 50% no-repeat"></div>
                         <h3>{{ content.description }}</h3>
                     </a>

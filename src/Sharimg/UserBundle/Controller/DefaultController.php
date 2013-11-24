@@ -16,17 +16,6 @@ class DefaultController extends Controller
     /**
      * Profile action
      * 
-     * @Template()
-     * @return Response
-     */
-    public function loginAction()
-    {
-        return array();
-    }
-    
-    /**
-     * Profile action
-     * 
      * @Secure(roles="ROLE_USER")
      * @Template()
      * @return Response

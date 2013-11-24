@@ -1,7 +1,8 @@
 parameters:
-#    sharimg_default.example.class: Sharimg\DefaultBundle\Example
+    sharimg_default.event_listener.class: Sharimg\DefaultBundle\EventListener\ControllerListener
 
 services:
-#    sharimg_default.example:
-#        class: %sharimg_default.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    sharimg_default.event_listener:
+        class: %sharimg_default.event_listener.class%
+        tags:
+          -  { name: kernel.event_listener, event: kernel.controller, method: onCoreController }

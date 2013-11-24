@@ -4,9 +4,14 @@
 sharimg.sharimg: "Sharimg"
 sharimg.copyright: "Copyright Sharimg 2013"
 
-sharimg.menu.add_content: "Share"
-sharimg.menu.random: "Random"
-sharimg.menu.import_content: "Import content"
+sharimg:
+  menu:
+    random: "Random"
+    add_content: "Share"
+    favorites: "Favorites"
+    import_content: "Import content"
+    moderate: "Moderate"
+    analytics: "Analytics"
 
 sharimg.login: "Sign in"
 sharimg.logged_in_as: "Logged in as %username%"
@@ -21,4 +26,7 @@ api.contents: "contents"
 
 error.ok: "OK"
 error.bad_arg: "Invalid arguments"
+error.missing_params: "Parameters are missing (%missing_params%)"
+error.unique_params: "Parameters (%unique_params%) must be unique and are already used."
+error.invalid_email_format: "Invalid email format"
 error.internal: "An unexpected error has occured"

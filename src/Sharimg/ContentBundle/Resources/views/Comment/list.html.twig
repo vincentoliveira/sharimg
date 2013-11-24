@@ -1,0 +1,11 @@
+{% extends "SharimgDefaultBundle::layout.html.twig" %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ 'content.comments'|trans }}</h1>
+
+    <div id="comments">
+        {% include 'SharimgContentBundle:Comment:listRaw.html.twig' with {comments: comments} %}
+    </div>
+</div>
+{% endblock %}
