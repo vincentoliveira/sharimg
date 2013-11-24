@@ -59,12 +59,20 @@ class Content
      * @ORM\Column(name="source", type="string", length=31, nullable=true)
      */
     private $source;
+    
     /**
      * @var boolean
      *
      * @ORM\Column(name="status_id", type="integer", length=2)
      */
     private $statusId;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="favorite_count", type="integer", nullable=true)
+     */
+    private $favoriteCount;
 
     /**
      * Get id
@@ -212,5 +220,28 @@ class Content
     public function getContributor()
     {
         return $this->contributor;
+    }
+
+    /**
+     * Set favoriteCount
+     *
+     * @param integer $favoriteCount
+     * @return Content
+     */
+    public function setFavoriteCount($favoriteCount)
+    {
+        $this->favoriteCount = $favoriteCount;
+    
+        return $this;
+    }
+
+    /**
+     * Get favoriteCount
+     *
+     * @return integer 
+     */
+    public function getFavoriteCount()
+    {
+        return $this->favoriteCount;
     }
 }

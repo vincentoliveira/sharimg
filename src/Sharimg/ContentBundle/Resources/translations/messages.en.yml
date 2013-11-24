@@ -1,10 +1,10 @@
 ## YAML Template.
 ---
 
-contents: "Contents"
-moderate: "Moderate"
 
 content:
+  contents: "Contents"
+  moderate: "Moderate"
   add: "Share content"
   select_content: "Select the media you want to share"
   file_input: "File input"
@@ -17,8 +17,15 @@ content:
   is_visible: "Publish ?"
   submit: "Share content"
   favorites: "Favorites"
+  comments: "Comments"
+  add_comment: "Add a comment"
+  submit_comment: "Post your comment"
+  warning_signin_to_comment: "You need to sign in to post a comment"
+  comment_success: "You have successfully posted a comment"
+  comment_fail: "An error has occured. Please try again later."
   
   show:
+    people_like_this: "%favorite_count% people favorized this content"
     from: "From:"
     source: "Source:"
     anonymous: "Anonymous"

@@ -9,10 +9,24 @@ sharimg_content_add:
 sharimg_content_random:
     pattern:  /content/random
     defaults: { _controller: SharimgContentBundle:Default:random }
-    
+
 sharimg_content_show:
     pattern:  /show/{content}
     defaults: { _controller: SharimgContentBundle:Default:show }
+    
+sharimg_content_comment_raw:
+    pattern:  /show/{content}/comment_raw
+    defaults: { _controller: SharimgContentBundle:Comment:listRaw }
+    requirements:
+        _method: POST
+    options:
+        expose: true
+
+sharimg_content_post_comments:
+    pattern:  /comments/{content}
+    defaults: { _controller: SharimgContentBundle:Comment:post }
+    requirements:
+        _method: POST
     
 sharimg_content_favorite:
     pattern:  /favorites
@@ -61,5 +75,15 @@ sharimg_api_content_favorites:
 sharimg_api_content_favorize:
     pattern:  /api/favorize.json
     defaults: { _controller: SharimgContentBundle:FavoriteApi:favorize }
+    requirements:
+        _method: POST
+
+sharimg_api_content_comment:
+    pattern:  /api/comment_list.json
+    defaults: { _controller: SharimgContentBundle:CommentApi:list }
+    
+sharimg_api_content_post_comment:
+    pattern:  /api/comment.json
+    defaults: { _controller: SharimgContentBundle:CommentApi:post }
     requirements:
         _method: POST

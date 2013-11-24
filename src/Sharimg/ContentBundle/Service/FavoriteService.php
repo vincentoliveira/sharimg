@@ -101,6 +101,8 @@ class FavoriteService
         if ($favorite === null) {
             $favorite = new Favorite();
             $favorite->setUser($user)->setContent($content);
+            
+            $content->setFavoriteCount($content->getFavoriteCount() + 1);
         }
 
         $favorite->setFavorized($favorized);

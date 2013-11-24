@@ -3,24 +3,25 @@ parameters:
     media.upload_dir: images/
     media.thumbnail.upload_dir: images/min
     media.thumbnail.width: 480
-    sharimg_content.content_form_handler.class: Sharimg\ContentBundle\Service\ContentFormHandler
-    sharimg_content.content_service.class: Sharimg\ContentBundle\Service\ContentService
-    sharimg_content.media_handler.class: Sharimg\ContentBundle\Service\MediaHandler
 
 services:
     sharimg_content.content_form_handler:
-        class: %sharimg_content.content_form_handler.class%
+        class: Sharimg\ContentBundle\Service\ContentFormHandler
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
         
     sharimg_content.content_service:
-        class: %sharimg_content.content_service.class%
+        class: Sharimg\ContentBundle\Service\ContentService
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
     
     sharimg_content.media_handler:
-        class: %sharimg_content.media_handler.class%
+        class: Sharimg\ContentBundle\Service\MediaHandler
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
         
     sharimg_content.favorite_service:
         class: Sharimg\ContentBundle\Service\FavoriteService
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+        
+    sharimg_content.comment_service:
+        class: Sharimg\ContentBundle\Service\CommentService
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
 

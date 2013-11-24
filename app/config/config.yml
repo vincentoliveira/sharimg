@@ -5,6 +5,7 @@ imports:
 parameters:
     api.default.count: 20
     sharimg.content.pagination: 50
+    sharimg.comment.pagination: 20
     moderate.content.pagination: 50
     
     content.status:
