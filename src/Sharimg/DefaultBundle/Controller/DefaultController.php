@@ -13,7 +13,6 @@ class DefaultController extends BaseController
     /**
      * Homepage
      * 
-     * @Template
      * @return Response
      */
     public function indexAction()
